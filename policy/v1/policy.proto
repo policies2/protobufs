@@ -4,7 +4,7 @@ package policy.v1;
 
 import "google/protobuf/struct.proto";
 
-option go_package = "github.com/policies2/orchestrator/proto/policyv1";
+option go_package = "github.com/policies2/protobufs/policy/v1;policyv1";
 
 // PolicyService handles policy execution
 service PolicyService {
