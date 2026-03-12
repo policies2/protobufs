@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Buf
+        uses: bufbuild/buf-setup-action@v1
+
+      - name: Lint Protos
+        run: buf lint
+
+      - name: Breaking Change Check
+        if: github.event_name == 'pull_request'
+        run: buf breaking --against '.git#branch=main'
+
+      - name: Generate Bindings
+        run: buf generate
+
+      - name: Verify Generated Files Are Committed
+        run: git diff --exit-code
