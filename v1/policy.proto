@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package policy.v1;
+
+import "google/protobuf/struct.proto";
+
+option go_package = "github.com/policies2/orchestrator/proto/policyv1";
+
+// PolicyService handles policy execution
+service PolicyService {
+  // Run executes an ad-hoc policy with embedded rule and data
+  rpc Run(RunRequest) returns (RunResponse);
+
+  // RunPolicy executes a stored policy by resource ID or base ID with provided data
+  rpc RunPolicy(RunPolicyRequest) returns (RunResponse);
+}
+
+// FlowService handles flow execution
+service FlowService {
+  // RunFlow executes a stored flow by resource ID or base ID with provided data
+  rpc RunFlow(RunFlowRequest) returns (FlowResponse);
+
+  // TestFlow tests a flow definition without saving it
+  rpc TestFlow(TestFlowRequest) returns (FlowResponse);
+}
+
+// --- Policy Messages ---
+
+message RunRequest {
+  string rule = 1;                          // Policy rule (DSL)
+  google.protobuf.Struct data = 2;          // Dynamic input data
+  google.protobuf.Struct tests = 3;         // Optional test cases
+  google.protobuf.Struct schema = 4;        // Optional JSON schema
+}
+
+message RunPolicyRequest {
+  string policy_id = 1;                     // Stored policy ID
+  google.protobuf.Struct data = 2;          // Input data to evaluate
+  string base_id = 3;                       // Stored policy base ID
+}
+
+message RunResponse {
+  bool result = 1;                          // Policy evaluation result
+  google.protobuf.Struct trace = 2;         // Execution trace
+  repeated string rule = 3;                 // Executed rules
+  google.protobuf.Struct data = 4;          // Output data
+  google.protobuf.Struct error = 5;         // Errors if any
+  google.protobuf.Struct labels = 6;        // Labels
+  ExecutionTiming execution = 7;            // Timing breakdown
+}
+
+message ExecutionTiming {
+  OrchestratorTiming orchestrator = 1;
+  string engine = 2;                        // Nanoseconds as string
+  string total = 3;                         // Nanoseconds as string
+}
+
+message OrchestratorTiming {
+  string go = 1;                            // Pure Go processing time
+  string database = 2;                      // Database query time
+  string total = 3;                         // Total orchestrator time
+}
+
+// --- Flow Messages ---
+
+message RunFlowRequest {
+  string flow_id = 1;                       // Stored flow ID
+  google.protobuf.Struct data = 2;          // Dynamic input data
+  string base_id = 3;                       // Stored flow base ID
+}
+
+message TestFlowRequest {
+  google.protobuf.Struct data = 1;          // Test data
+  string flow_yaml = 2;                     // Flow definition (YAML string)
+}
+
+message FlowResponse {
+  google.protobuf.Value result = 1;         // Can be any type (bool, string, struct)
+  repeated FlowNodeResponse node_response = 2;
+  FlowExecutionTiming execution = 3;
+}
+
+message FlowNodeResponse {
+  string node_id = 1;
+  string node_type = 2;
+  RunResponse response = 3;
+  FlowNodeExecution execution = 4;
+}
+
+message FlowNodeExecution {
+  string database = 1;                      // Policy load time (nanoseconds)
+  string engine = 2;                        // Policy execution time (nanoseconds)
+  string total = 3;                         // Total node time (nanoseconds)
+}
+
+message FlowExecutionTiming {
+  string orchestrator = 1;                  // Flow management overhead
+  string database = 2;                      // Total database time
+  string engine = 3;                        // Total engine time
+  string total = 4;                         // Total end-to-end time
+}
