@@ -40,7 +40,17 @@ jobs:
         run: buf generate
 
       - name: Verify Generated Files Are Committed
-        run: git diff --exit-code
+        run: |
+          git diff \
+            -I '^// versions:$' \
+            -I '^//[[:space:]]+protoc-gen-go v' \
+            -I '^// - protoc-gen-go-grpc v' \
+            -I '^//[[:space:]]+protoc[[:space:]]+v' \
+            -I '^// - protoc[[:space:]]+v' \
+            -I '^//[[:space:]]+protoc[[:space:]]+\(unknown\)$' \
+            -I '^// - protoc[[:space:]]+\(unknown\)$' \
+            -I '^// source: ' \
+            --exit-code
 
       - name: Verify Go Bindings Build
         run: go test ./...

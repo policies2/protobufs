@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v6.33.4
-// source: proto/policy/v1/policy.proto
+// source: policy/v1/policy.proto
 
 package policyv1
 
@@ -34,7 +34,7 @@ type RunRequest struct {
 
 func (x *RunRequest) Reset() {
 	*x = RunRequest{}
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[0]
+	mi := &file_policy_v1_policy_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -46,7 +46,7 @@ func (x *RunRequest) String() string {
 func (*RunRequest) ProtoMessage() {}
 
 func (x *RunRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[0]
+	mi := &file_policy_v1_policy_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -59,7 +59,7 @@ func (x *RunRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RunRequest.ProtoReflect.Descriptor instead.
 func (*RunRequest) Descriptor() ([]byte, []int) {
-	return file_proto_policy_v1_policy_proto_rawDescGZIP(), []int{0}
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *RunRequest) GetRule() string {
@@ -101,7 +101,7 @@ type RunPolicyRequest struct {
 
 func (x *RunPolicyRequest) Reset() {
 	*x = RunPolicyRequest{}
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[1]
+	mi := &file_policy_v1_policy_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -113,7 +113,7 @@ func (x *RunPolicyRequest) String() string {
 func (*RunPolicyRequest) ProtoMessage() {}
 
 func (x *RunPolicyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[1]
+	mi := &file_policy_v1_policy_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -126,7 +126,7 @@ func (x *RunPolicyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RunPolicyRequest.ProtoReflect.Descriptor instead.
 func (*RunPolicyRequest) Descriptor() ([]byte, []int) {
-	return file_proto_policy_v1_policy_proto_rawDescGZIP(), []int{1}
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *RunPolicyRequest) GetPolicyId() string {
@@ -165,7 +165,7 @@ type RunResponse struct {
 
 func (x *RunResponse) Reset() {
 	*x = RunResponse{}
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[2]
+	mi := &file_policy_v1_policy_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -177,7 +177,7 @@ func (x *RunResponse) String() string {
 func (*RunResponse) ProtoMessage() {}
 
 func (x *RunResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[2]
+	mi := &file_policy_v1_policy_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -190,7 +190,7 @@ func (x *RunResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RunResponse.ProtoReflect.Descriptor instead.
 func (*RunResponse) Descriptor() ([]byte, []int) {
-	return file_proto_policy_v1_policy_proto_rawDescGZIP(), []int{2}
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *RunResponse) GetResult() bool {
@@ -242,6 +242,98 @@ func (x *RunResponse) GetExecution() *ExecutionTiming {
 	return nil
 }
 
+type RunPolicyResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Result        bool                   `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`      // Policy evaluation result
+	Trace         *structpb.Struct       `protobuf:"bytes,2,opt,name=trace,proto3" json:"trace,omitempty"`         // Execution trace
+	Rule          []string               `protobuf:"bytes,3,rep,name=rule,proto3" json:"rule,omitempty"`           // Executed rules
+	Data          *structpb.Struct       `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`           // Output data
+	Error         *structpb.Struct       `protobuf:"bytes,5,opt,name=error,proto3" json:"error,omitempty"`         // Errors if any
+	Labels        *structpb.Struct       `protobuf:"bytes,6,opt,name=labels,proto3" json:"labels,omitempty"`       // Labels
+	Execution     *ExecutionTiming       `protobuf:"bytes,7,opt,name=execution,proto3" json:"execution,omitempty"` // Timing breakdown
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RunPolicyResponse) Reset() {
+	*x = RunPolicyResponse{}
+	mi := &file_policy_v1_policy_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RunPolicyResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RunPolicyResponse) ProtoMessage() {}
+
+func (x *RunPolicyResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_policy_v1_policy_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RunPolicyResponse.ProtoReflect.Descriptor instead.
+func (*RunPolicyResponse) Descriptor() ([]byte, []int) {
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *RunPolicyResponse) GetResult() bool {
+	if x != nil {
+		return x.Result
+	}
+	return false
+}
+
+func (x *RunPolicyResponse) GetTrace() *structpb.Struct {
+	if x != nil {
+		return x.Trace
+	}
+	return nil
+}
+
+func (x *RunPolicyResponse) GetRule() []string {
+	if x != nil {
+		return x.Rule
+	}
+	return nil
+}
+
+func (x *RunPolicyResponse) GetData() *structpb.Struct {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+func (x *RunPolicyResponse) GetError() *structpb.Struct {
+	if x != nil {
+		return x.Error
+	}
+	return nil
+}
+
+func (x *RunPolicyResponse) GetLabels() *structpb.Struct {
+	if x != nil {
+		return x.Labels
+	}
+	return nil
+}
+
+func (x *RunPolicyResponse) GetExecution() *ExecutionTiming {
+	if x != nil {
+		return x.Execution
+	}
+	return nil
+}
+
 type ExecutionTiming struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Orchestrator  *OrchestratorTiming    `protobuf:"bytes,1,opt,name=orchestrator,proto3" json:"orchestrator,omitempty"`
@@ -253,7 +345,7 @@ type ExecutionTiming struct {
 
 func (x *ExecutionTiming) Reset() {
 	*x = ExecutionTiming{}
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[3]
+	mi := &file_policy_v1_policy_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -265,7 +357,7 @@ func (x *ExecutionTiming) String() string {
 func (*ExecutionTiming) ProtoMessage() {}
 
 func (x *ExecutionTiming) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[3]
+	mi := &file_policy_v1_policy_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -278,7 +370,7 @@ func (x *ExecutionTiming) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExecutionTiming.ProtoReflect.Descriptor instead.
 func (*ExecutionTiming) Descriptor() ([]byte, []int) {
-	return file_proto_policy_v1_policy_proto_rawDescGZIP(), []int{3}
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ExecutionTiming) GetOrchestrator() *OrchestratorTiming {
@@ -313,7 +405,7 @@ type OrchestratorTiming struct {
 
 func (x *OrchestratorTiming) Reset() {
 	*x = OrchestratorTiming{}
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[4]
+	mi := &file_policy_v1_policy_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -325,7 +417,7 @@ func (x *OrchestratorTiming) String() string {
 func (*OrchestratorTiming) ProtoMessage() {}
 
 func (x *OrchestratorTiming) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[4]
+	mi := &file_policy_v1_policy_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -338,7 +430,7 @@ func (x *OrchestratorTiming) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrchestratorTiming.ProtoReflect.Descriptor instead.
 func (*OrchestratorTiming) Descriptor() ([]byte, []int) {
-	return file_proto_policy_v1_policy_proto_rawDescGZIP(), []int{4}
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *OrchestratorTiming) GetGo() string {
@@ -373,7 +465,7 @@ type RunFlowRequest struct {
 
 func (x *RunFlowRequest) Reset() {
 	*x = RunFlowRequest{}
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[5]
+	mi := &file_policy_v1_policy_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -385,7 +477,7 @@ func (x *RunFlowRequest) String() string {
 func (*RunFlowRequest) ProtoMessage() {}
 
 func (x *RunFlowRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[5]
+	mi := &file_policy_v1_policy_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -398,7 +490,7 @@ func (x *RunFlowRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RunFlowRequest.ProtoReflect.Descriptor instead.
 func (*RunFlowRequest) Descriptor() ([]byte, []int) {
-	return file_proto_policy_v1_policy_proto_rawDescGZIP(), []int{5}
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *RunFlowRequest) GetFlowId() string {
@@ -432,7 +524,7 @@ type TestFlowRequest struct {
 
 func (x *TestFlowRequest) Reset() {
 	*x = TestFlowRequest{}
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[6]
+	mi := &file_policy_v1_policy_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -444,7 +536,7 @@ func (x *TestFlowRequest) String() string {
 func (*TestFlowRequest) ProtoMessage() {}
 
 func (x *TestFlowRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[6]
+	mi := &file_policy_v1_policy_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -457,7 +549,7 @@ func (x *TestFlowRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TestFlowRequest.ProtoReflect.Descriptor instead.
 func (*TestFlowRequest) Descriptor() ([]byte, []int) {
-	return file_proto_policy_v1_policy_proto_rawDescGZIP(), []int{6}
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *TestFlowRequest) GetData() *structpb.Struct {
@@ -474,7 +566,7 @@ func (x *TestFlowRequest) GetFlowYaml() string {
 	return ""
 }
 
-type FlowResponse struct {
+type RunFlowResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Result        *structpb.Value        `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"` // Can be any type (bool, string, struct)
 	NodeResponse  []*FlowNodeResponse    `protobuf:"bytes,2,rep,name=node_response,json=nodeResponse,proto3" json:"node_response,omitempty"`
@@ -483,21 +575,21 @@ type FlowResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *FlowResponse) Reset() {
-	*x = FlowResponse{}
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[7]
+func (x *RunFlowResponse) Reset() {
+	*x = RunFlowResponse{}
+	mi := &file_policy_v1_policy_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *FlowResponse) String() string {
+func (x *RunFlowResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*FlowResponse) ProtoMessage() {}
+func (*RunFlowResponse) ProtoMessage() {}
 
-func (x *FlowResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[7]
+func (x *RunFlowResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_policy_v1_policy_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -508,26 +600,86 @@ func (x *FlowResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use FlowResponse.ProtoReflect.Descriptor instead.
-func (*FlowResponse) Descriptor() ([]byte, []int) {
-	return file_proto_policy_v1_policy_proto_rawDescGZIP(), []int{7}
+// Deprecated: Use RunFlowResponse.ProtoReflect.Descriptor instead.
+func (*RunFlowResponse) Descriptor() ([]byte, []int) {
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *FlowResponse) GetResult() *structpb.Value {
+func (x *RunFlowResponse) GetResult() *structpb.Value {
 	if x != nil {
 		return x.Result
 	}
 	return nil
 }
 
-func (x *FlowResponse) GetNodeResponse() []*FlowNodeResponse {
+func (x *RunFlowResponse) GetNodeResponse() []*FlowNodeResponse {
 	if x != nil {
 		return x.NodeResponse
 	}
 	return nil
 }
 
-func (x *FlowResponse) GetExecution() *FlowExecutionTiming {
+func (x *RunFlowResponse) GetExecution() *FlowExecutionTiming {
+	if x != nil {
+		return x.Execution
+	}
+	return nil
+}
+
+type TestFlowResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Result        *structpb.Value        `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"` // Can be any type (bool, string, struct)
+	NodeResponse  []*FlowNodeResponse    `protobuf:"bytes,2,rep,name=node_response,json=nodeResponse,proto3" json:"node_response,omitempty"`
+	Execution     *FlowExecutionTiming   `protobuf:"bytes,3,opt,name=execution,proto3" json:"execution,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TestFlowResponse) Reset() {
+	*x = TestFlowResponse{}
+	mi := &file_policy_v1_policy_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TestFlowResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TestFlowResponse) ProtoMessage() {}
+
+func (x *TestFlowResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_policy_v1_policy_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TestFlowResponse.ProtoReflect.Descriptor instead.
+func (*TestFlowResponse) Descriptor() ([]byte, []int) {
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *TestFlowResponse) GetResult() *structpb.Value {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+func (x *TestFlowResponse) GetNodeResponse() []*FlowNodeResponse {
+	if x != nil {
+		return x.NodeResponse
+	}
+	return nil
+}
+
+func (x *TestFlowResponse) GetExecution() *FlowExecutionTiming {
 	if x != nil {
 		return x.Execution
 	}
@@ -546,7 +698,7 @@ type FlowNodeResponse struct {
 
 func (x *FlowNodeResponse) Reset() {
 	*x = FlowNodeResponse{}
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[8]
+	mi := &file_policy_v1_policy_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -558,7 +710,7 @@ func (x *FlowNodeResponse) String() string {
 func (*FlowNodeResponse) ProtoMessage() {}
 
 func (x *FlowNodeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[8]
+	mi := &file_policy_v1_policy_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -571,7 +723,7 @@ func (x *FlowNodeResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FlowNodeResponse.ProtoReflect.Descriptor instead.
 func (*FlowNodeResponse) Descriptor() ([]byte, []int) {
-	return file_proto_policy_v1_policy_proto_rawDescGZIP(), []int{8}
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *FlowNodeResponse) GetNodeId() string {
@@ -613,7 +765,7 @@ type FlowNodeExecution struct {
 
 func (x *FlowNodeExecution) Reset() {
 	*x = FlowNodeExecution{}
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[9]
+	mi := &file_policy_v1_policy_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -625,7 +777,7 @@ func (x *FlowNodeExecution) String() string {
 func (*FlowNodeExecution) ProtoMessage() {}
 
 func (x *FlowNodeExecution) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[9]
+	mi := &file_policy_v1_policy_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -638,7 +790,7 @@ func (x *FlowNodeExecution) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FlowNodeExecution.ProtoReflect.Descriptor instead.
 func (*FlowNodeExecution) Descriptor() ([]byte, []int) {
-	return file_proto_policy_v1_policy_proto_rawDescGZIP(), []int{9}
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *FlowNodeExecution) GetDatabase() string {
@@ -674,7 +826,7 @@ type FlowExecutionTiming struct {
 
 func (x *FlowExecutionTiming) Reset() {
 	*x = FlowExecutionTiming{}
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[10]
+	mi := &file_policy_v1_policy_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -686,7 +838,7 @@ func (x *FlowExecutionTiming) String() string {
 func (*FlowExecutionTiming) ProtoMessage() {}
 
 func (x *FlowExecutionTiming) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_policy_v1_policy_proto_msgTypes[10]
+	mi := &file_policy_v1_policy_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -699,7 +851,7 @@ func (x *FlowExecutionTiming) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FlowExecutionTiming.ProtoReflect.Descriptor instead.
 func (*FlowExecutionTiming) Descriptor() ([]byte, []int) {
-	return file_proto_policy_v1_policy_proto_rawDescGZIP(), []int{10}
+	return file_policy_v1_policy_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *FlowExecutionTiming) GetOrchestrator() string {
@@ -730,11 +882,11 @@ func (x *FlowExecutionTiming) GetTotal() string {
 	return ""
 }
 
-var File_proto_policy_v1_policy_proto protoreflect.FileDescriptor
+var File_policy_v1_policy_proto protoreflect.FileDescriptor
 
-const file_proto_policy_v1_policy_proto_rawDesc = "" +
+const file_policy_v1_policy_proto_rawDesc = "" +
 	"\n" +
-	"\x1cproto/policy/v1/policy.proto\x12\tpolicy.v1\x1a\x1cgoogle/protobuf/struct.proto\"\xad\x01\n" +
+	"\x16policy/v1/policy.proto\x12\tpolicy.v1\x1a\x1cgoogle/protobuf/struct.proto\"\xad\x01\n" +
 	"\n" +
 	"RunRequest\x12\x12\n" +
 	"\x04rule\x18\x01 \x01(\tR\x04rule\x12+\n" +
@@ -746,6 +898,14 @@ const file_proto_policy_v1_policy_proto_rawDesc = "" +
 	"\x04data\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x04data\x12\x17\n" +
 	"\abase_id\x18\x03 \x01(\tR\x06baseId\"\xaf\x02\n" +
 	"\vRunResponse\x12\x16\n" +
+	"\x06result\x18\x01 \x01(\bR\x06result\x12-\n" +
+	"\x05trace\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x05trace\x12\x12\n" +
+	"\x04rule\x18\x03 \x03(\tR\x04rule\x12+\n" +
+	"\x04data\x18\x04 \x01(\v2\x17.google.protobuf.StructR\x04data\x12-\n" +
+	"\x05error\x18\x05 \x01(\v2\x17.google.protobuf.StructR\x05error\x12/\n" +
+	"\x06labels\x18\x06 \x01(\v2\x17.google.protobuf.StructR\x06labels\x128\n" +
+	"\texecution\x18\a \x01(\v2\x1a.policy.v1.ExecutionTimingR\texecution\"\xb5\x02\n" +
+	"\x11RunPolicyResponse\x12\x16\n" +
 	"\x06result\x18\x01 \x01(\bR\x06result\x12-\n" +
 	"\x05trace\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x05trace\x12\x12\n" +
 	"\x04rule\x18\x03 \x03(\tR\x04rule\x12+\n" +
@@ -767,8 +927,12 @@ const file_proto_policy_v1_policy_proto_rawDesc = "" +
 	"\abase_id\x18\x03 \x01(\tR\x06baseId\"[\n" +
 	"\x0fTestFlowRequest\x12+\n" +
 	"\x04data\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x04data\x12\x1b\n" +
-	"\tflow_yaml\x18\x02 \x01(\tR\bflowYaml\"\xbe\x01\n" +
-	"\fFlowResponse\x12.\n" +
+	"\tflow_yaml\x18\x02 \x01(\tR\bflowYaml\"\xc1\x01\n" +
+	"\x0fRunFlowResponse\x12.\n" +
+	"\x06result\x18\x01 \x01(\v2\x16.google.protobuf.ValueR\x06result\x12@\n" +
+	"\rnode_response\x18\x02 \x03(\v2\x1b.policy.v1.FlowNodeResponseR\fnodeResponse\x12<\n" +
+	"\texecution\x18\x03 \x01(\v2\x1e.policy.v1.FlowExecutionTimingR\texecution\"\xc2\x01\n" +
+	"\x10TestFlowResponse\x12.\n" +
 	"\x06result\x18\x01 \x01(\v2\x16.google.protobuf.ValueR\x06result\x12@\n" +
 	"\rnode_response\x18\x02 \x03(\v2\x1b.policy.v1.FlowNodeResponseR\fnodeResponse\x12<\n" +
 	"\texecution\x18\x03 \x01(\v2\x1e.policy.v1.FlowExecutionTimingR\texecution\"\xb8\x01\n" +
@@ -785,95 +949,105 @@ const file_proto_policy_v1_policy_proto_rawDesc = "" +
 	"\forchestrator\x18\x01 \x01(\tR\forchestrator\x12\x1a\n" +
 	"\bdatabase\x18\x02 \x01(\tR\bdatabase\x12\x16\n" +
 	"\x06engine\x18\x03 \x01(\tR\x06engine\x12\x14\n" +
-	"\x05total\x18\x04 \x01(\tR\x05total2\x87\x01\n" +
+	"\x05total\x18\x04 \x01(\tR\x05total2\x8d\x01\n" +
 	"\rPolicyService\x124\n" +
-	"\x03Run\x12\x15.policy.v1.RunRequest\x1a\x16.policy.v1.RunResponse\x12@\n" +
-	"\tRunPolicy\x12\x1b.policy.v1.RunPolicyRequest\x1a\x16.policy.v1.RunResponse2\x8d\x01\n" +
-	"\vFlowService\x12=\n" +
-	"\aRunFlow\x12\x19.policy.v1.RunFlowRequest\x1a\x17.policy.v1.FlowResponse\x12?\n" +
-	"\bTestFlow\x12\x1a.policy.v1.TestFlowRequest\x1a\x17.policy.v1.FlowResponseB2Z0github.com/policies2/orchestrator/proto/policyv1b\x06proto3"
+	"\x03Run\x12\x15.policy.v1.RunRequest\x1a\x16.policy.v1.RunResponse\x12F\n" +
+	"\tRunPolicy\x12\x1b.policy.v1.RunPolicyRequest\x1a\x1c.policy.v1.RunPolicyResponse2\x94\x01\n" +
+	"\vFlowService\x12@\n" +
+	"\aRunFlow\x12\x19.policy.v1.RunFlowRequest\x1a\x1a.policy.v1.RunFlowResponse\x12C\n" +
+	"\bTestFlow\x12\x1a.policy.v1.TestFlowRequest\x1a\x1b.policy.v1.TestFlowResponseB3Z1github.com/policies2/protobufs/policy/v1;policyv1b\x06proto3"
 
 var (
-	file_proto_policy_v1_policy_proto_rawDescOnce sync.Once
-	file_proto_policy_v1_policy_proto_rawDescData []byte
+	file_policy_v1_policy_proto_rawDescOnce sync.Once
+	file_policy_v1_policy_proto_rawDescData []byte
 )
 
-func file_proto_policy_v1_policy_proto_rawDescGZIP() []byte {
-	file_proto_policy_v1_policy_proto_rawDescOnce.Do(func() {
-		file_proto_policy_v1_policy_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_proto_policy_v1_policy_proto_rawDesc), len(file_proto_policy_v1_policy_proto_rawDesc)))
+func file_policy_v1_policy_proto_rawDescGZIP() []byte {
+	file_policy_v1_policy_proto_rawDescOnce.Do(func() {
+		file_policy_v1_policy_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_policy_v1_policy_proto_rawDesc), len(file_policy_v1_policy_proto_rawDesc)))
 	})
-	return file_proto_policy_v1_policy_proto_rawDescData
+	return file_policy_v1_policy_proto_rawDescData
 }
 
-var file_proto_policy_v1_policy_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_proto_policy_v1_policy_proto_goTypes = []any{
+var file_policy_v1_policy_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+var file_policy_v1_policy_proto_goTypes = []any{
 	(*RunRequest)(nil),          // 0: policy.v1.RunRequest
 	(*RunPolicyRequest)(nil),    // 1: policy.v1.RunPolicyRequest
 	(*RunResponse)(nil),         // 2: policy.v1.RunResponse
-	(*ExecutionTiming)(nil),     // 3: policy.v1.ExecutionTiming
-	(*OrchestratorTiming)(nil),  // 4: policy.v1.OrchestratorTiming
-	(*RunFlowRequest)(nil),      // 5: policy.v1.RunFlowRequest
-	(*TestFlowRequest)(nil),     // 6: policy.v1.TestFlowRequest
-	(*FlowResponse)(nil),        // 7: policy.v1.FlowResponse
-	(*FlowNodeResponse)(nil),    // 8: policy.v1.FlowNodeResponse
-	(*FlowNodeExecution)(nil),   // 9: policy.v1.FlowNodeExecution
-	(*FlowExecutionTiming)(nil), // 10: policy.v1.FlowExecutionTiming
-	(*structpb.Struct)(nil),     // 11: google.protobuf.Struct
-	(*structpb.Value)(nil),      // 12: google.protobuf.Value
+	(*RunPolicyResponse)(nil),   // 3: policy.v1.RunPolicyResponse
+	(*ExecutionTiming)(nil),     // 4: policy.v1.ExecutionTiming
+	(*OrchestratorTiming)(nil),  // 5: policy.v1.OrchestratorTiming
+	(*RunFlowRequest)(nil),      // 6: policy.v1.RunFlowRequest
+	(*TestFlowRequest)(nil),     // 7: policy.v1.TestFlowRequest
+	(*RunFlowResponse)(nil),     // 8: policy.v1.RunFlowResponse
+	(*TestFlowResponse)(nil),    // 9: policy.v1.TestFlowResponse
+	(*FlowNodeResponse)(nil),    // 10: policy.v1.FlowNodeResponse
+	(*FlowNodeExecution)(nil),   // 11: policy.v1.FlowNodeExecution
+	(*FlowExecutionTiming)(nil), // 12: policy.v1.FlowExecutionTiming
+	(*structpb.Struct)(nil),     // 13: google.protobuf.Struct
+	(*structpb.Value)(nil),      // 14: google.protobuf.Value
 }
-var file_proto_policy_v1_policy_proto_depIdxs = []int32{
-	11, // 0: policy.v1.RunRequest.data:type_name -> google.protobuf.Struct
-	11, // 1: policy.v1.RunRequest.tests:type_name -> google.protobuf.Struct
-	11, // 2: policy.v1.RunRequest.schema:type_name -> google.protobuf.Struct
-	11, // 3: policy.v1.RunPolicyRequest.data:type_name -> google.protobuf.Struct
-	11, // 4: policy.v1.RunResponse.trace:type_name -> google.protobuf.Struct
-	11, // 5: policy.v1.RunResponse.data:type_name -> google.protobuf.Struct
-	11, // 6: policy.v1.RunResponse.error:type_name -> google.protobuf.Struct
-	11, // 7: policy.v1.RunResponse.labels:type_name -> google.protobuf.Struct
-	3,  // 8: policy.v1.RunResponse.execution:type_name -> policy.v1.ExecutionTiming
-	4,  // 9: policy.v1.ExecutionTiming.orchestrator:type_name -> policy.v1.OrchestratorTiming
-	11, // 10: policy.v1.RunFlowRequest.data:type_name -> google.protobuf.Struct
-	11, // 11: policy.v1.TestFlowRequest.data:type_name -> google.protobuf.Struct
-	12, // 12: policy.v1.FlowResponse.result:type_name -> google.protobuf.Value
-	8,  // 13: policy.v1.FlowResponse.node_response:type_name -> policy.v1.FlowNodeResponse
-	10, // 14: policy.v1.FlowResponse.execution:type_name -> policy.v1.FlowExecutionTiming
-	2,  // 15: policy.v1.FlowNodeResponse.response:type_name -> policy.v1.RunResponse
-	9,  // 16: policy.v1.FlowNodeResponse.execution:type_name -> policy.v1.FlowNodeExecution
-	0,  // 17: policy.v1.PolicyService.Run:input_type -> policy.v1.RunRequest
-	1,  // 18: policy.v1.PolicyService.RunPolicy:input_type -> policy.v1.RunPolicyRequest
-	5,  // 19: policy.v1.FlowService.RunFlow:input_type -> policy.v1.RunFlowRequest
-	6,  // 20: policy.v1.FlowService.TestFlow:input_type -> policy.v1.TestFlowRequest
-	2,  // 21: policy.v1.PolicyService.Run:output_type -> policy.v1.RunResponse
-	2,  // 22: policy.v1.PolicyService.RunPolicy:output_type -> policy.v1.RunResponse
-	7,  // 23: policy.v1.FlowService.RunFlow:output_type -> policy.v1.FlowResponse
-	7,  // 24: policy.v1.FlowService.TestFlow:output_type -> policy.v1.FlowResponse
-	21, // [21:25] is the sub-list for method output_type
-	17, // [17:21] is the sub-list for method input_type
-	17, // [17:17] is the sub-list for extension type_name
-	17, // [17:17] is the sub-list for extension extendee
-	0,  // [0:17] is the sub-list for field type_name
+var file_policy_v1_policy_proto_depIdxs = []int32{
+	13, // 0: policy.v1.RunRequest.data:type_name -> google.protobuf.Struct
+	13, // 1: policy.v1.RunRequest.tests:type_name -> google.protobuf.Struct
+	13, // 2: policy.v1.RunRequest.schema:type_name -> google.protobuf.Struct
+	13, // 3: policy.v1.RunPolicyRequest.data:type_name -> google.protobuf.Struct
+	13, // 4: policy.v1.RunResponse.trace:type_name -> google.protobuf.Struct
+	13, // 5: policy.v1.RunResponse.data:type_name -> google.protobuf.Struct
+	13, // 6: policy.v1.RunResponse.error:type_name -> google.protobuf.Struct
+	13, // 7: policy.v1.RunResponse.labels:type_name -> google.protobuf.Struct
+	4,  // 8: policy.v1.RunResponse.execution:type_name -> policy.v1.ExecutionTiming
+	13, // 9: policy.v1.RunPolicyResponse.trace:type_name -> google.protobuf.Struct
+	13, // 10: policy.v1.RunPolicyResponse.data:type_name -> google.protobuf.Struct
+	13, // 11: policy.v1.RunPolicyResponse.error:type_name -> google.protobuf.Struct
+	13, // 12: policy.v1.RunPolicyResponse.labels:type_name -> google.protobuf.Struct
+	4,  // 13: policy.v1.RunPolicyResponse.execution:type_name -> policy.v1.ExecutionTiming
+	5,  // 14: policy.v1.ExecutionTiming.orchestrator:type_name -> policy.v1.OrchestratorTiming
+	13, // 15: policy.v1.RunFlowRequest.data:type_name -> google.protobuf.Struct
+	13, // 16: policy.v1.TestFlowRequest.data:type_name -> google.protobuf.Struct
+	14, // 17: policy.v1.RunFlowResponse.result:type_name -> google.protobuf.Value
+	10, // 18: policy.v1.RunFlowResponse.node_response:type_name -> policy.v1.FlowNodeResponse
+	12, // 19: policy.v1.RunFlowResponse.execution:type_name -> policy.v1.FlowExecutionTiming
+	14, // 20: policy.v1.TestFlowResponse.result:type_name -> google.protobuf.Value
+	10, // 21: policy.v1.TestFlowResponse.node_response:type_name -> policy.v1.FlowNodeResponse
+	12, // 22: policy.v1.TestFlowResponse.execution:type_name -> policy.v1.FlowExecutionTiming
+	2,  // 23: policy.v1.FlowNodeResponse.response:type_name -> policy.v1.RunResponse
+	11, // 24: policy.v1.FlowNodeResponse.execution:type_name -> policy.v1.FlowNodeExecution
+	0,  // 25: policy.v1.PolicyService.Run:input_type -> policy.v1.RunRequest
+	1,  // 26: policy.v1.PolicyService.RunPolicy:input_type -> policy.v1.RunPolicyRequest
+	6,  // 27: policy.v1.FlowService.RunFlow:input_type -> policy.v1.RunFlowRequest
+	7,  // 28: policy.v1.FlowService.TestFlow:input_type -> policy.v1.TestFlowRequest
+	2,  // 29: policy.v1.PolicyService.Run:output_type -> policy.v1.RunResponse
+	3,  // 30: policy.v1.PolicyService.RunPolicy:output_type -> policy.v1.RunPolicyResponse
+	8,  // 31: policy.v1.FlowService.RunFlow:output_type -> policy.v1.RunFlowResponse
+	9,  // 32: policy.v1.FlowService.TestFlow:output_type -> policy.v1.TestFlowResponse
+	29, // [29:33] is the sub-list for method output_type
+	25, // [25:29] is the sub-list for method input_type
+	25, // [25:25] is the sub-list for extension type_name
+	25, // [25:25] is the sub-list for extension extendee
+	0,  // [0:25] is the sub-list for field type_name
 }
 
-func init() { file_proto_policy_v1_policy_proto_init() }
-func file_proto_policy_v1_policy_proto_init() {
-	if File_proto_policy_v1_policy_proto != nil {
+func init() { file_policy_v1_policy_proto_init() }
+func file_policy_v1_policy_proto_init() {
+	if File_policy_v1_policy_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_policy_v1_policy_proto_rawDesc), len(file_proto_policy_v1_policy_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_policy_v1_policy_proto_rawDesc), len(file_policy_v1_policy_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   2,
 		},
-		GoTypes:           file_proto_policy_v1_policy_proto_goTypes,
-		DependencyIndexes: file_proto_policy_v1_policy_proto_depIdxs,
-		MessageInfos:      file_proto_policy_v1_policy_proto_msgTypes,
+		GoTypes:           file_policy_v1_policy_proto_goTypes,
+		DependencyIndexes: file_policy_v1_policy_proto_depIdxs,
+		MessageInfos:      file_policy_v1_policy_proto_msgTypes,
 	}.Build()
-	File_proto_policy_v1_policy_proto = out.File
-	file_proto_policy_v1_policy_proto_goTypes = nil
-	file_proto_policy_v1_policy_proto_depIdxs = nil
+	File_policy_v1_policy_proto = out.File
+	file_policy_v1_policy_proto_goTypes = nil
+	file_policy_v1_policy_proto_depIdxs = nil
 }
