@@ -16,6 +16,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
       - name: Setup Buf
         uses: bufbuild/buf-setup-action@v1
 
@@ -31,3 +37,6 @@ jobs:
 
       - name: Verify Generated Files Are Committed
         run: git diff --exit-code
+
+      - name: Verify Go Bindings Build
+        run: go test ./...
