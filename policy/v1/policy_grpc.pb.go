@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.0
 // - protoc             v6.33.4
-// source: proto/policy/v1/policy.proto
+// source: policy/v1/policy.proto
 
 package policyv1
 
@@ -32,7 +32,7 @@ type PolicyServiceClient interface {
 	// Run executes an ad-hoc policy with embedded rule and data
 	Run(ctx context.Context, in *RunRequest, opts ...grpc.CallOption) (*RunResponse, error)
 	// RunPolicy executes a stored policy by resource ID or base ID with provided data
-	RunPolicy(ctx context.Context, in *RunPolicyRequest, opts ...grpc.CallOption) (*RunResponse, error)
+	RunPolicy(ctx context.Context, in *RunPolicyRequest, opts ...grpc.CallOption) (*RunPolicyResponse, error)
 }
 
 type policyServiceClient struct {
@@ -53,9 +53,9 @@ func (c *policyServiceClient) Run(ctx context.Context, in *RunRequest, opts ...g
 	return out, nil
 }
 
-func (c *policyServiceClient) RunPolicy(ctx context.Context, in *RunPolicyRequest, opts ...grpc.CallOption) (*RunResponse, error) {
+func (c *policyServiceClient) RunPolicy(ctx context.Context, in *RunPolicyRequest, opts ...grpc.CallOption) (*RunPolicyResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(RunResponse)
+	out := new(RunPolicyResponse)
 	err := c.cc.Invoke(ctx, PolicyService_RunPolicy_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -72,7 +72,7 @@ type PolicyServiceServer interface {
 	// Run executes an ad-hoc policy with embedded rule and data
 	Run(context.Context, *RunRequest) (*RunResponse, error)
 	// RunPolicy executes a stored policy by resource ID or base ID with provided data
-	RunPolicy(context.Context, *RunPolicyRequest) (*RunResponse, error)
+	RunPolicy(context.Context, *RunPolicyRequest) (*RunPolicyResponse, error)
 	mustEmbedUnimplementedPolicyServiceServer()
 }
 
@@ -86,7 +86,7 @@ type UnimplementedPolicyServiceServer struct{}
 func (UnimplementedPolicyServiceServer) Run(context.Context, *RunRequest) (*RunResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Run not implemented")
 }
-func (UnimplementedPolicyServiceServer) RunPolicy(context.Context, *RunPolicyRequest) (*RunResponse, error) {
+func (UnimplementedPolicyServiceServer) RunPolicy(context.Context, *RunPolicyRequest) (*RunPolicyResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method RunPolicy not implemented")
 }
 func (UnimplementedPolicyServiceServer) mustEmbedUnimplementedPolicyServiceServer() {}
@@ -163,7 +163,7 @@ var PolicyService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/policy/v1/policy.proto",
+	Metadata: "policy/v1/policy.proto",
 }
 
 const (
@@ -178,9 +178,9 @@ const (
 // FlowService handles flow execution
 type FlowServiceClient interface {
 	// RunFlow executes a stored flow by resource ID or base ID with provided data
-	RunFlow(ctx context.Context, in *RunFlowRequest, opts ...grpc.CallOption) (*FlowResponse, error)
+	RunFlow(ctx context.Context, in *RunFlowRequest, opts ...grpc.CallOption) (*RunFlowResponse, error)
 	// TestFlow tests a flow definition without saving it
-	TestFlow(ctx context.Context, in *TestFlowRequest, opts ...grpc.CallOption) (*FlowResponse, error)
+	TestFlow(ctx context.Context, in *TestFlowRequest, opts ...grpc.CallOption) (*TestFlowResponse, error)
 }
 
 type flowServiceClient struct {
@@ -191,9 +191,9 @@ func NewFlowServiceClient(cc grpc.ClientConnInterface) FlowServiceClient {
 	return &flowServiceClient{cc}
 }
 
-func (c *flowServiceClient) RunFlow(ctx context.Context, in *RunFlowRequest, opts ...grpc.CallOption) (*FlowResponse, error) {
+func (c *flowServiceClient) RunFlow(ctx context.Context, in *RunFlowRequest, opts ...grpc.CallOption) (*RunFlowResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(FlowResponse)
+	out := new(RunFlowResponse)
 	err := c.cc.Invoke(ctx, FlowService_RunFlow_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -201,9 +201,9 @@ func (c *flowServiceClient) RunFlow(ctx context.Context, in *RunFlowRequest, opt
 	return out, nil
 }
 
-func (c *flowServiceClient) TestFlow(ctx context.Context, in *TestFlowRequest, opts ...grpc.CallOption) (*FlowResponse, error) {
+func (c *flowServiceClient) TestFlow(ctx context.Context, in *TestFlowRequest, opts ...grpc.CallOption) (*TestFlowResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(FlowResponse)
+	out := new(TestFlowResponse)
 	err := c.cc.Invoke(ctx, FlowService_TestFlow_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -218,9 +218,9 @@ func (c *flowServiceClient) TestFlow(ctx context.Context, in *TestFlowRequest, o
 // FlowService handles flow execution
 type FlowServiceServer interface {
 	// RunFlow executes a stored flow by resource ID or base ID with provided data
-	RunFlow(context.Context, *RunFlowRequest) (*FlowResponse, error)
+	RunFlow(context.Context, *RunFlowRequest) (*RunFlowResponse, error)
 	// TestFlow tests a flow definition without saving it
-	TestFlow(context.Context, *TestFlowRequest) (*FlowResponse, error)
+	TestFlow(context.Context, *TestFlowRequest) (*TestFlowResponse, error)
 	mustEmbedUnimplementedFlowServiceServer()
 }
 
@@ -231,10 +231,10 @@ type FlowServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedFlowServiceServer struct{}
 
-func (UnimplementedFlowServiceServer) RunFlow(context.Context, *RunFlowRequest) (*FlowResponse, error) {
+func (UnimplementedFlowServiceServer) RunFlow(context.Context, *RunFlowRequest) (*RunFlowResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method RunFlow not implemented")
 }
-func (UnimplementedFlowServiceServer) TestFlow(context.Context, *TestFlowRequest) (*FlowResponse, error) {
+func (UnimplementedFlowServiceServer) TestFlow(context.Context, *TestFlowRequest) (*TestFlowResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method TestFlow not implemented")
 }
 func (UnimplementedFlowServiceServer) mustEmbedUnimplementedFlowServiceServer() {}
@@ -311,5 +311,5 @@ var FlowService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/policy/v1/policy.proto",
+	Metadata: "policy/v1/policy.proto",
 }

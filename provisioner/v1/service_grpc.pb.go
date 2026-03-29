@@ -158,3 +158,114 @@ var TenantProvisioningService_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "provisioner/v1/service.proto",
 }
+
+const (
+	TenantMigrationService_MigrateTenantDatabase_FullMethodName = "/provisioner.v1.TenantMigrationService/MigrateTenantDatabase"
+)
+
+// TenantMigrationServiceClient is the client API for TenantMigrationService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// TenantMigrationService is implemented by the API service.
+// The provisioner calls it after creating a database and registering
+// credentials with the keyserver, so the API can run its own migrations.
+type TenantMigrationServiceClient interface {
+	MigrateTenantDatabase(ctx context.Context, in *MigrateTenantDatabaseRequest, opts ...grpc.CallOption) (*MigrateTenantDatabaseResponse, error)
+}
+
+type tenantMigrationServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewTenantMigrationServiceClient(cc grpc.ClientConnInterface) TenantMigrationServiceClient {
+	return &tenantMigrationServiceClient{cc}
+}
+
+func (c *tenantMigrationServiceClient) MigrateTenantDatabase(ctx context.Context, in *MigrateTenantDatabaseRequest, opts ...grpc.CallOption) (*MigrateTenantDatabaseResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MigrateTenantDatabaseResponse)
+	err := c.cc.Invoke(ctx, TenantMigrationService_MigrateTenantDatabase_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// TenantMigrationServiceServer is the server API for TenantMigrationService service.
+// All implementations must embed UnimplementedTenantMigrationServiceServer
+// for forward compatibility.
+//
+// TenantMigrationService is implemented by the API service.
+// The provisioner calls it after creating a database and registering
+// credentials with the keyserver, so the API can run its own migrations.
+type TenantMigrationServiceServer interface {
+	MigrateTenantDatabase(context.Context, *MigrateTenantDatabaseRequest) (*MigrateTenantDatabaseResponse, error)
+	mustEmbedUnimplementedTenantMigrationServiceServer()
+}
+
+// UnimplementedTenantMigrationServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedTenantMigrationServiceServer struct{}
+
+func (UnimplementedTenantMigrationServiceServer) MigrateTenantDatabase(context.Context, *MigrateTenantDatabaseRequest) (*MigrateTenantDatabaseResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method MigrateTenantDatabase not implemented")
+}
+func (UnimplementedTenantMigrationServiceServer) mustEmbedUnimplementedTenantMigrationServiceServer() {
+}
+func (UnimplementedTenantMigrationServiceServer) testEmbeddedByValue() {}
+
+// UnsafeTenantMigrationServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TenantMigrationServiceServer will
+// result in compilation errors.
+type UnsafeTenantMigrationServiceServer interface {
+	mustEmbedUnimplementedTenantMigrationServiceServer()
+}
+
+func RegisterTenantMigrationServiceServer(s grpc.ServiceRegistrar, srv TenantMigrationServiceServer) {
+	// If the following call panics, it indicates UnimplementedTenantMigrationServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&TenantMigrationService_ServiceDesc, srv)
+}
+
+func _TenantMigrationService_MigrateTenantDatabase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MigrateTenantDatabaseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TenantMigrationServiceServer).MigrateTenantDatabase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TenantMigrationService_MigrateTenantDatabase_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TenantMigrationServiceServer).MigrateTenantDatabase(ctx, req.(*MigrateTenantDatabaseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// TenantMigrationService_ServiceDesc is the grpc.ServiceDesc for TenantMigrationService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var TenantMigrationService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "provisioner.v1.TenantMigrationService",
+	HandlerType: (*TenantMigrationServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "MigrateTenantDatabase",
+			Handler:    _TenantMigrationService_MigrateTenantDatabase_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "provisioner/v1/service.proto",
+}

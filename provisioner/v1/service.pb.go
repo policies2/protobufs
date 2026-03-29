@@ -238,6 +238,102 @@ func (x *HealthzResponse) GetStatus() string {
 	return ""
 }
 
+type MigrateTenantDatabaseRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MigrateTenantDatabaseRequest) Reset() {
+	*x = MigrateTenantDatabaseRequest{}
+	mi := &file_provisioner_v1_service_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MigrateTenantDatabaseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MigrateTenantDatabaseRequest) ProtoMessage() {}
+
+func (x *MigrateTenantDatabaseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_provisioner_v1_service_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MigrateTenantDatabaseRequest.ProtoReflect.Descriptor instead.
+func (*MigrateTenantDatabaseRequest) Descriptor() ([]byte, []int) {
+	return file_provisioner_v1_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *MigrateTenantDatabaseRequest) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+type MigrateTenantDatabaseResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	Success       bool                   `protobuf:"varint,2,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MigrateTenantDatabaseResponse) Reset() {
+	*x = MigrateTenantDatabaseResponse{}
+	mi := &file_provisioner_v1_service_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MigrateTenantDatabaseResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MigrateTenantDatabaseResponse) ProtoMessage() {}
+
+func (x *MigrateTenantDatabaseResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_provisioner_v1_service_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MigrateTenantDatabaseResponse.ProtoReflect.Descriptor instead.
+func (*MigrateTenantDatabaseResponse) Descriptor() ([]byte, []int) {
+	return file_provisioner_v1_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *MigrateTenantDatabaseResponse) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *MigrateTenantDatabaseResponse) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
 var File_provisioner_v1_service_proto protoreflect.FileDescriptor
 
 const file_provisioner_v1_service_proto_rawDesc = "" +
@@ -255,10 +351,17 @@ const file_provisioner_v1_service_proto_rawDesc = "" +
 	"\x0falready_existed\x18\x05 \x01(\bR\x0ealreadyExisted\"\x10\n" +
 	"\x0eHealthzRequest\")\n" +
 	"\x0fHealthzResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status2\xe3\x01\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\";\n" +
+	"\x1cMigrateTenantDatabaseRequest\x12\x1b\n" +
+	"\ttenant_id\x18\x01 \x01(\tR\btenantId\"V\n" +
+	"\x1dMigrateTenantDatabaseResponse\x12\x1b\n" +
+	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12\x18\n" +
+	"\asuccess\x18\x02 \x01(\bR\asuccess2\xe3\x01\n" +
 	"\x19TenantProvisioningService\x12z\n" +
 	"\x17ProvisionTenantDatabase\x12..provisioner.v1.ProvisionTenantDatabaseRequest\x1a/.provisioner.v1.ProvisionTenantDatabaseResponse\x12J\n" +
-	"\aHealthz\x12\x1e.provisioner.v1.HealthzRequest\x1a\x1f.provisioner.v1.HealthzResponseB=Z;github.com/policies2/protobufs/provisioner/v1;provisionerv1b\x06proto3"
+	"\aHealthz\x12\x1e.provisioner.v1.HealthzRequest\x1a\x1f.provisioner.v1.HealthzResponse2\x8e\x01\n" +
+	"\x16TenantMigrationService\x12t\n" +
+	"\x15MigrateTenantDatabase\x12,.provisioner.v1.MigrateTenantDatabaseRequest\x1a-.provisioner.v1.MigrateTenantDatabaseResponseB=Z;github.com/policies2/protobufs/provisioner/v1;provisionerv1b\x06proto3"
 
 var (
 	file_provisioner_v1_service_proto_rawDescOnce sync.Once
@@ -272,22 +375,26 @@ func file_provisioner_v1_service_proto_rawDescGZIP() []byte {
 	return file_provisioner_v1_service_proto_rawDescData
 }
 
-var file_provisioner_v1_service_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_provisioner_v1_service_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_provisioner_v1_service_proto_goTypes = []any{
 	(*ProvisionTenantDatabaseRequest)(nil),  // 0: provisioner.v1.ProvisionTenantDatabaseRequest
 	(*ProvisionTenantDatabaseResponse)(nil), // 1: provisioner.v1.ProvisionTenantDatabaseResponse
 	(*HealthzRequest)(nil),                  // 2: provisioner.v1.HealthzRequest
 	(*HealthzResponse)(nil),                 // 3: provisioner.v1.HealthzResponse
-	(*v1.DatabaseDetails)(nil),              // 4: keyserver.v1.DatabaseDetails
+	(*MigrateTenantDatabaseRequest)(nil),    // 4: provisioner.v1.MigrateTenantDatabaseRequest
+	(*MigrateTenantDatabaseResponse)(nil),   // 5: provisioner.v1.MigrateTenantDatabaseResponse
+	(*v1.DatabaseDetails)(nil),              // 6: keyserver.v1.DatabaseDetails
 }
 var file_provisioner_v1_service_proto_depIdxs = []int32{
-	4, // 0: provisioner.v1.ProvisionTenantDatabaseResponse.database:type_name -> keyserver.v1.DatabaseDetails
+	6, // 0: provisioner.v1.ProvisionTenantDatabaseResponse.database:type_name -> keyserver.v1.DatabaseDetails
 	0, // 1: provisioner.v1.TenantProvisioningService.ProvisionTenantDatabase:input_type -> provisioner.v1.ProvisionTenantDatabaseRequest
 	2, // 2: provisioner.v1.TenantProvisioningService.Healthz:input_type -> provisioner.v1.HealthzRequest
-	1, // 3: provisioner.v1.TenantProvisioningService.ProvisionTenantDatabase:output_type -> provisioner.v1.ProvisionTenantDatabaseResponse
-	3, // 4: provisioner.v1.TenantProvisioningService.Healthz:output_type -> provisioner.v1.HealthzResponse
-	3, // [3:5] is the sub-list for method output_type
-	1, // [1:3] is the sub-list for method input_type
+	4, // 3: provisioner.v1.TenantMigrationService.MigrateTenantDatabase:input_type -> provisioner.v1.MigrateTenantDatabaseRequest
+	1, // 4: provisioner.v1.TenantProvisioningService.ProvisionTenantDatabase:output_type -> provisioner.v1.ProvisionTenantDatabaseResponse
+	3, // 5: provisioner.v1.TenantProvisioningService.Healthz:output_type -> provisioner.v1.HealthzResponse
+	5, // 6: provisioner.v1.TenantMigrationService.MigrateTenantDatabase:output_type -> provisioner.v1.MigrateTenantDatabaseResponse
+	4, // [4:7] is the sub-list for method output_type
+	1, // [1:4] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -304,9 +411,9 @@ func file_provisioner_v1_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_provisioner_v1_service_proto_rawDesc), len(file_provisioner_v1_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   2,
 		},
 		GoTypes:           file_provisioner_v1_service_proto_goTypes,
 		DependencyIndexes: file_provisioner_v1_service_proto_depIdxs,
