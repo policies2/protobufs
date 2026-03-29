@@ -241,6 +241,7 @@ func (x *HealthzResponse) GetStatus() string {
 type MigrateTenantDatabaseRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	Database      *v1.DatabaseDetails    `protobuf:"bytes,2,opt,name=database,proto3" json:"database,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -280,6 +281,13 @@ func (x *MigrateTenantDatabaseRequest) GetTenantId() string {
 		return x.TenantId
 	}
 	return ""
+}
+
+func (x *MigrateTenantDatabaseRequest) GetDatabase() *v1.DatabaseDetails {
+	if x != nil {
+		return x.Database
+	}
+	return nil
 }
 
 type MigrateTenantDatabaseResponse struct {
@@ -351,9 +359,10 @@ const file_provisioner_v1_service_proto_rawDesc = "" +
 	"\x0falready_existed\x18\x05 \x01(\bR\x0ealreadyExisted\"\x10\n" +
 	"\x0eHealthzRequest\")\n" +
 	"\x0fHealthzResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status\";\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\"v\n" +
 	"\x1cMigrateTenantDatabaseRequest\x12\x1b\n" +
-	"\ttenant_id\x18\x01 \x01(\tR\btenantId\"V\n" +
+	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x129\n" +
+	"\bdatabase\x18\x02 \x01(\v2\x1d.keyserver.v1.DatabaseDetailsR\bdatabase\"V\n" +
 	"\x1dMigrateTenantDatabaseResponse\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12\x18\n" +
 	"\asuccess\x18\x02 \x01(\bR\asuccess2\xe3\x01\n" +
@@ -387,17 +396,18 @@ var file_provisioner_v1_service_proto_goTypes = []any{
 }
 var file_provisioner_v1_service_proto_depIdxs = []int32{
 	6, // 0: provisioner.v1.ProvisionTenantDatabaseResponse.database:type_name -> keyserver.v1.DatabaseDetails
-	0, // 1: provisioner.v1.TenantProvisioningService.ProvisionTenantDatabase:input_type -> provisioner.v1.ProvisionTenantDatabaseRequest
-	2, // 2: provisioner.v1.TenantProvisioningService.Healthz:input_type -> provisioner.v1.HealthzRequest
-	4, // 3: provisioner.v1.TenantMigrationService.MigrateTenantDatabase:input_type -> provisioner.v1.MigrateTenantDatabaseRequest
-	1, // 4: provisioner.v1.TenantProvisioningService.ProvisionTenantDatabase:output_type -> provisioner.v1.ProvisionTenantDatabaseResponse
-	3, // 5: provisioner.v1.TenantProvisioningService.Healthz:output_type -> provisioner.v1.HealthzResponse
-	5, // 6: provisioner.v1.TenantMigrationService.MigrateTenantDatabase:output_type -> provisioner.v1.MigrateTenantDatabaseResponse
-	4, // [4:7] is the sub-list for method output_type
-	1, // [1:4] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	6, // 1: provisioner.v1.MigrateTenantDatabaseRequest.database:type_name -> keyserver.v1.DatabaseDetails
+	0, // 2: provisioner.v1.TenantProvisioningService.ProvisionTenantDatabase:input_type -> provisioner.v1.ProvisionTenantDatabaseRequest
+	2, // 3: provisioner.v1.TenantProvisioningService.Healthz:input_type -> provisioner.v1.HealthzRequest
+	4, // 4: provisioner.v1.TenantMigrationService.MigrateTenantDatabase:input_type -> provisioner.v1.MigrateTenantDatabaseRequest
+	1, // 5: provisioner.v1.TenantProvisioningService.ProvisionTenantDatabase:output_type -> provisioner.v1.ProvisionTenantDatabaseResponse
+	3, // 6: provisioner.v1.TenantProvisioningService.Healthz:output_type -> provisioner.v1.HealthzResponse
+	5, // 7: provisioner.v1.TenantMigrationService.MigrateTenantDatabase:output_type -> provisioner.v1.MigrateTenantDatabaseResponse
+	5, // [5:8] is the sub-list for method output_type
+	2, // [2:5] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_provisioner_v1_service_proto_init() }
