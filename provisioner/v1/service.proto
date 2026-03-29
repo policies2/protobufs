@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package provisioner.v1;
+
+option go_package = "github.com/policies2/protobufs/provisioner/v1;provisionerv1";
+
+import "keyserver/v1/service.proto";
+
+service TenantProvisioningService {
+  rpc ProvisionTenantDatabase(ProvisionTenantDatabaseRequest) returns (ProvisionTenantDatabaseResponse);
+  rpc Healthz(HealthzRequest) returns (HealthzResponse);
+}
+
+message ProvisionTenantDatabaseRequest {
+  string tenant_id = 1;
+  string service_name = 2;
+  bool allow_existing = 3;
+}
+
+message ProvisionTenantDatabaseResponse {
+  string tenant_id = 1;
+  string railway_service = 2;
+  keyserver.v1.DatabaseDetails database = 3;
+  bool migration_applied = 4;
+  bool already_existed = 5;
+}
+
+message HealthzRequest {}
+
+message HealthzResponse {
+  string status = 1;
+}
+
+// TenantMigrationService is implemented by the API service.
+// The provisioner calls it after creating a database and registering
+// credentials with the keyserver, so the API can run its own migrations.
+service TenantMigrationService {
+  rpc MigrateTenantDatabase(MigrateTenantDatabaseRequest) returns (MigrateTenantDatabaseResponse);
+}
+
+message MigrateTenantDatabaseRequest {
+  string tenant_id = 1;
+}
+
+message MigrateTenantDatabaseResponse {
+  string tenant_id = 1;
+  bool success = 2;
+}

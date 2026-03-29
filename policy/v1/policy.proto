@@ -12,16 +12,16 @@ service PolicyService {
   rpc Run(RunRequest) returns (RunResponse);
 
   // RunPolicy executes a stored policy by resource ID or base ID with provided data
-  rpc RunPolicy(RunPolicyRequest) returns (RunResponse);
+  rpc RunPolicy(RunPolicyRequest) returns (RunPolicyResponse);
 }
 
 // FlowService handles flow execution
 service FlowService {
   // RunFlow executes a stored flow by resource ID or base ID with provided data
-  rpc RunFlow(RunFlowRequest) returns (FlowResponse);
+  rpc RunFlow(RunFlowRequest) returns (RunFlowResponse);
 
   // TestFlow tests a flow definition without saving it
-  rpc TestFlow(TestFlowRequest) returns (FlowResponse);
+  rpc TestFlow(TestFlowRequest) returns (TestFlowResponse);
 }
 
 // --- Policy Messages ---
@@ -40,6 +40,16 @@ message RunPolicyRequest {
 }
 
 message RunResponse {
+  bool result = 1;                          // Policy evaluation result
+  google.protobuf.Struct trace = 2;         // Execution trace
+  repeated string rule = 3;                 // Executed rules
+  google.protobuf.Struct data = 4;          // Output data
+  google.protobuf.Struct error = 5;         // Errors if any
+  google.protobuf.Struct labels = 6;        // Labels
+  ExecutionTiming execution = 7;            // Timing breakdown
+}
+
+message RunPolicyResponse {
   bool result = 1;                          // Policy evaluation result
   google.protobuf.Struct trace = 2;         // Execution trace
   repeated string rule = 3;                 // Executed rules
@@ -74,7 +84,13 @@ message TestFlowRequest {
   string flow_yaml = 2;                     // Flow definition (YAML string)
 }
 
-message FlowResponse {
+message RunFlowResponse {
+  google.protobuf.Value result = 1;         // Can be any type (bool, string, struct)
+  repeated FlowNodeResponse node_response = 2;
+  FlowExecutionTiming execution = 3;
+}
+
+message TestFlowResponse {
   google.protobuf.Value result = 1;         // Can be any type (bool, string, struct)
   repeated FlowNodeResponse node_response = 2;
   FlowExecutionTiming execution = 3;
