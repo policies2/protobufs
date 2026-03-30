@@ -1,0 +1,49 @@
+name: Generate Bindings
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "keyserver/**/*.proto"
+      - "policy/**/*.proto"
+      - "provisioner/**/*.proto"
+      - "buf.gen.yaml"
+      - "buf.yaml"
+      - ".github/workflows/generate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Setup Buf
+        uses: bufbuild/buf-setup-action@v1
+
+      - name: Generate Bindings
+        run: buf generate
+
+      - name: Commit Generated Bindings
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+          git add .
+          git diff --cached --quiet || git commit -m "chore: generate protobuf bindings"
+
+      - name: Push Generated Bindings
+        run: git push

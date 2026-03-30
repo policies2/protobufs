@@ -17,6 +17,10 @@ message GenerateKeyRequest {
   string tenant_id = 1;
   string user_id = 2;
   string org_id = 3;
+  repeated string scopes = 4;
+  string issued_by_user_id = 5;
+  google.protobuf.Timestamp expires_at = 6;
+  bool shared_db = 7;
 }
 
 message GenerateKeyResponse {
@@ -26,6 +30,13 @@ message GenerateKeyResponse {
   string user_id = 4;
   string org_id = 5;
   google.protobuf.Timestamp created_at = 6;
+  repeated string scopes = 7;
+  string owner_type = 8;
+  string owner_id = 9;
+  string issued_by_user_id = 10;
+  google.protobuf.Timestamp expires_at = 11;
+  bool shared_db = 12;
+  bool valid = 13;
 }
 
 message PutTenantDatabaseRequest {
@@ -50,6 +61,13 @@ message ValidateKeyResponse {
   string user_id = 3;
   string org_id = 4;
   DatabaseDetails database = 5;
+  repeated string scopes = 6;
+  string owner_type = 7;
+  string owner_id = 8;
+  string issued_by_user_id = 9;
+  google.protobuf.Timestamp expires_at = 10;
+  bool shared_db = 11;
+  bool valid = 12;
 }
 
 message DatabaseDetails {
