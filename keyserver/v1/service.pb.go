@@ -31,6 +31,8 @@ type GenerateKeyRequest struct {
 	IssuedByUserId string                 `protobuf:"bytes,5,opt,name=issued_by_user_id,json=issuedByUserId,proto3" json:"issued_by_user_id,omitempty"`
 	ExpiresAt      *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
 	SharedDb       bool                   `protobuf:"varint,7,opt,name=shared_db,json=sharedDb,proto3" json:"shared_db,omitempty"`
+	Name           string                 `protobuf:"bytes,8,opt,name=name,proto3" json:"name,omitempty"`
+	ReplacesKeyId  string                 `protobuf:"bytes,9,opt,name=replaces_key_id,json=replacesKeyId,proto3" json:"replaces_key_id,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -114,6 +116,20 @@ func (x *GenerateKeyRequest) GetSharedDb() bool {
 	return false
 }
 
+func (x *GenerateKeyRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *GenerateKeyRequest) GetReplacesKeyId() string {
+	if x != nil {
+		return x.ReplacesKeyId
+	}
+	return ""
+}
+
 type GenerateKeyResponse struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	ApiKey         string                 `protobuf:"bytes,1,opt,name=api_key,json=apiKey,proto3" json:"api_key,omitempty"`
@@ -129,6 +145,7 @@ type GenerateKeyResponse struct {
 	ExpiresAt      *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
 	SharedDb       bool                   `protobuf:"varint,12,opt,name=shared_db,json=sharedDb,proto3" json:"shared_db,omitempty"`
 	Valid          bool                   `protobuf:"varint,13,opt,name=valid,proto3" json:"valid,omitempty"`
+	Name           string                 `protobuf:"bytes,14,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -252,6 +269,13 @@ func (x *GenerateKeyResponse) GetValid() bool {
 		return x.Valid
 	}
 	return false
+}
+
+func (x *GenerateKeyResponse) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
 }
 
 type PutTenantDatabaseRequest struct {
@@ -550,6 +574,442 @@ func (x *ValidateKeyResponse) GetValid() bool {
 	return false
 }
 
+type RevokeKeyRequest struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	KeyId           string                 `protobuf:"bytes,1,opt,name=key_id,json=keyId,proto3" json:"key_id,omitempty"`
+	TenantId        string                 `protobuf:"bytes,2,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	ReplacedByKeyId string                 `protobuf:"bytes,3,opt,name=replaced_by_key_id,json=replacedByKeyId,proto3" json:"replaced_by_key_id,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *RevokeKeyRequest) Reset() {
+	*x = RevokeKeyRequest{}
+	mi := &file_keyserver_v1_service_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RevokeKeyRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeKeyRequest) ProtoMessage() {}
+
+func (x *RevokeKeyRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_keyserver_v1_service_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeKeyRequest.ProtoReflect.Descriptor instead.
+func (*RevokeKeyRequest) Descriptor() ([]byte, []int) {
+	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *RevokeKeyRequest) GetKeyId() string {
+	if x != nil {
+		return x.KeyId
+	}
+	return ""
+}
+
+func (x *RevokeKeyRequest) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *RevokeKeyRequest) GetReplacedByKeyId() string {
+	if x != nil {
+		return x.ReplacedByKeyId
+	}
+	return ""
+}
+
+type RevokeKeyResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RevokeKeyResponse) Reset() {
+	*x = RevokeKeyResponse{}
+	mi := &file_keyserver_v1_service_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RevokeKeyResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeKeyResponse) ProtoMessage() {}
+
+func (x *RevokeKeyResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_keyserver_v1_service_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeKeyResponse.ProtoReflect.Descriptor instead.
+func (*RevokeKeyResponse) Descriptor() ([]byte, []int) {
+	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{7}
+}
+
+type ListKeysRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	OwnerType     string                 `protobuf:"bytes,2,opt,name=owner_type,json=ownerType,proto3" json:"owner_type,omitempty"`
+	OwnerId       string                 `protobuf:"bytes,3,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListKeysRequest) Reset() {
+	*x = ListKeysRequest{}
+	mi := &file_keyserver_v1_service_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListKeysRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListKeysRequest) ProtoMessage() {}
+
+func (x *ListKeysRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_keyserver_v1_service_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListKeysRequest.ProtoReflect.Descriptor instead.
+func (*ListKeysRequest) Descriptor() ([]byte, []int) {
+	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *ListKeysRequest) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *ListKeysRequest) GetOwnerType() string {
+	if x != nil {
+		return x.OwnerType
+	}
+	return ""
+}
+
+func (x *ListKeysRequest) GetOwnerId() string {
+	if x != nil {
+		return x.OwnerId
+	}
+	return ""
+}
+
+type ListKeysResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Keys          []*KeyInfo             `protobuf:"bytes,1,rep,name=keys,proto3" json:"keys,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListKeysResponse) Reset() {
+	*x = ListKeysResponse{}
+	mi := &file_keyserver_v1_service_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListKeysResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListKeysResponse) ProtoMessage() {}
+
+func (x *ListKeysResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_keyserver_v1_service_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListKeysResponse.ProtoReflect.Descriptor instead.
+func (*ListKeysResponse) Descriptor() ([]byte, []int) {
+	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *ListKeysResponse) GetKeys() []*KeyInfo {
+	if x != nil {
+		return x.Keys
+	}
+	return nil
+}
+
+type GetKeyRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	KeyId         string                 `protobuf:"bytes,1,opt,name=key_id,json=keyId,proto3" json:"key_id,omitempty"`
+	TenantId      string                 `protobuf:"bytes,2,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetKeyRequest) Reset() {
+	*x = GetKeyRequest{}
+	mi := &file_keyserver_v1_service_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetKeyRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetKeyRequest) ProtoMessage() {}
+
+func (x *GetKeyRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_keyserver_v1_service_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetKeyRequest.ProtoReflect.Descriptor instead.
+func (*GetKeyRequest) Descriptor() ([]byte, []int) {
+	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetKeyRequest) GetKeyId() string {
+	if x != nil {
+		return x.KeyId
+	}
+	return ""
+}
+
+func (x *GetKeyRequest) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+type GetKeyResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           *KeyInfo               `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetKeyResponse) Reset() {
+	*x = GetKeyResponse{}
+	mi := &file_keyserver_v1_service_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetKeyResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetKeyResponse) ProtoMessage() {}
+
+func (x *GetKeyResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_keyserver_v1_service_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetKeyResponse.ProtoReflect.Descriptor instead.
+func (*GetKeyResponse) Descriptor() ([]byte, []int) {
+	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetKeyResponse) GetKey() *KeyInfo {
+	if x != nil {
+		return x.Key
+	}
+	return nil
+}
+
+type KeyInfo struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	KeyId           string                 `protobuf:"bytes,1,opt,name=key_id,json=keyId,proto3" json:"key_id,omitempty"`
+	Name            string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	OwnerType       string                 `protobuf:"bytes,3,opt,name=owner_type,json=ownerType,proto3" json:"owner_type,omitempty"`
+	OwnerId         string                 `protobuf:"bytes,4,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"`
+	TenantId        string                 `protobuf:"bytes,5,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	IssuedByUserId  string                 `protobuf:"bytes,6,opt,name=issued_by_user_id,json=issuedByUserId,proto3" json:"issued_by_user_id,omitempty"`
+	Scopes          []string               `protobuf:"bytes,7,rep,name=scopes,proto3" json:"scopes,omitempty"`
+	CreatedAt       *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	ExpiresAt       *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
+	RevokedAt       *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=revoked_at,json=revokedAt,proto3" json:"revoked_at,omitempty"`
+	ReplacesKeyId   string                 `protobuf:"bytes,11,opt,name=replaces_key_id,json=replacesKeyId,proto3" json:"replaces_key_id,omitempty"`
+	ReplacedByKeyId string                 `protobuf:"bytes,12,opt,name=replaced_by_key_id,json=replacedByKeyId,proto3" json:"replaced_by_key_id,omitempty"`
+	SharedDb        bool                   `protobuf:"varint,13,opt,name=shared_db,json=sharedDb,proto3" json:"shared_db,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *KeyInfo) Reset() {
+	*x = KeyInfo{}
+	mi := &file_keyserver_v1_service_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *KeyInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*KeyInfo) ProtoMessage() {}
+
+func (x *KeyInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_keyserver_v1_service_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use KeyInfo.ProtoReflect.Descriptor instead.
+func (*KeyInfo) Descriptor() ([]byte, []int) {
+	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *KeyInfo) GetKeyId() string {
+	if x != nil {
+		return x.KeyId
+	}
+	return ""
+}
+
+func (x *KeyInfo) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *KeyInfo) GetOwnerType() string {
+	if x != nil {
+		return x.OwnerType
+	}
+	return ""
+}
+
+func (x *KeyInfo) GetOwnerId() string {
+	if x != nil {
+		return x.OwnerId
+	}
+	return ""
+}
+
+func (x *KeyInfo) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *KeyInfo) GetIssuedByUserId() string {
+	if x != nil {
+		return x.IssuedByUserId
+	}
+	return ""
+}
+
+func (x *KeyInfo) GetScopes() []string {
+	if x != nil {
+		return x.Scopes
+	}
+	return nil
+}
+
+func (x *KeyInfo) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *KeyInfo) GetExpiresAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ExpiresAt
+	}
+	return nil
+}
+
+func (x *KeyInfo) GetRevokedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.RevokedAt
+	}
+	return nil
+}
+
+func (x *KeyInfo) GetReplacesKeyId() string {
+	if x != nil {
+		return x.ReplacesKeyId
+	}
+	return ""
+}
+
+func (x *KeyInfo) GetReplacedByKeyId() string {
+	if x != nil {
+		return x.ReplacedByKeyId
+	}
+	return ""
+}
+
+func (x *KeyInfo) GetSharedDb() bool {
+	if x != nil {
+		return x.SharedDb
+	}
+	return false
+}
+
 type DatabaseDetails struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Engine        string                 `protobuf:"bytes,1,opt,name=engine,proto3" json:"engine,omitempty"`
@@ -566,7 +1026,7 @@ type DatabaseDetails struct {
 
 func (x *DatabaseDetails) Reset() {
 	*x = DatabaseDetails{}
-	mi := &file_keyserver_v1_service_proto_msgTypes[6]
+	mi := &file_keyserver_v1_service_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -578,7 +1038,7 @@ func (x *DatabaseDetails) String() string {
 func (*DatabaseDetails) ProtoMessage() {}
 
 func (x *DatabaseDetails) ProtoReflect() protoreflect.Message {
-	mi := &file_keyserver_v1_service_proto_msgTypes[6]
+	mi := &file_keyserver_v1_service_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -591,7 +1051,7 @@ func (x *DatabaseDetails) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DatabaseDetails.ProtoReflect.Descriptor instead.
 func (*DatabaseDetails) Descriptor() ([]byte, []int) {
-	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{6}
+	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *DatabaseDetails) GetEngine() string {
@@ -658,7 +1118,7 @@ type HealthzRequest struct {
 
 func (x *HealthzRequest) Reset() {
 	*x = HealthzRequest{}
-	mi := &file_keyserver_v1_service_proto_msgTypes[7]
+	mi := &file_keyserver_v1_service_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -670,7 +1130,7 @@ func (x *HealthzRequest) String() string {
 func (*HealthzRequest) ProtoMessage() {}
 
 func (x *HealthzRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_keyserver_v1_service_proto_msgTypes[7]
+	mi := &file_keyserver_v1_service_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -683,7 +1143,7 @@ func (x *HealthzRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthzRequest.ProtoReflect.Descriptor instead.
 func (*HealthzRequest) Descriptor() ([]byte, []int) {
-	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{7}
+	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{14}
 }
 
 type HealthzResponse struct {
@@ -695,7 +1155,7 @@ type HealthzResponse struct {
 
 func (x *HealthzResponse) Reset() {
 	*x = HealthzResponse{}
-	mi := &file_keyserver_v1_service_proto_msgTypes[8]
+	mi := &file_keyserver_v1_service_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -707,7 +1167,7 @@ func (x *HealthzResponse) String() string {
 func (*HealthzResponse) ProtoMessage() {}
 
 func (x *HealthzResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_keyserver_v1_service_proto_msgTypes[8]
+	mi := &file_keyserver_v1_service_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -720,7 +1180,7 @@ func (x *HealthzResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthzResponse.ProtoReflect.Descriptor instead.
 func (*HealthzResponse) Descriptor() ([]byte, []int) {
-	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{8}
+	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *HealthzResponse) GetStatus() string {
@@ -734,7 +1194,7 @@ var File_keyserver_v1_service_proto protoreflect.FileDescriptor
 
 const file_keyserver_v1_service_proto_rawDesc = "" +
 	"\n" +
-	"\x1akeyserver/v1/service.proto\x12\fkeyserver.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xfc\x01\n" +
+	"\x1akeyserver/v1/service.proto\x12\fkeyserver.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb8\x02\n" +
 	"\x12GenerateKeyRequest\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x15\n" +
@@ -743,7 +1203,9 @@ const file_keyserver_v1_service_proto_rawDesc = "" +
 	"\x11issued_by_user_id\x18\x05 \x01(\tR\x0eissuedByUserId\x129\n" +
 	"\n" +
 	"expires_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12\x1b\n" +
-	"\tshared_db\x18\a \x01(\bR\bsharedDb\"\xb8\x03\n" +
+	"\tshared_db\x18\a \x01(\bR\bsharedDb\x12\x12\n" +
+	"\x04name\x18\b \x01(\tR\x04name\x12&\n" +
+	"\x0freplaces_key_id\x18\t \x01(\tR\rreplacesKeyId\"\xcc\x03\n" +
 	"\x13GenerateKeyResponse\x12\x17\n" +
 	"\aapi_key\x18\x01 \x01(\tR\x06apiKey\x12\x15\n" +
 	"\x06key_id\x18\x02 \x01(\tR\x05keyId\x12\x1b\n" +
@@ -761,7 +1223,8 @@ const file_keyserver_v1_service_proto_rawDesc = "" +
 	"\n" +
 	"expires_at\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12\x1b\n" +
 	"\tshared_db\x18\f \x01(\bR\bsharedDb\x12\x14\n" +
-	"\x05valid\x18\r \x01(\bR\x05valid\"\x92\x01\n" +
+	"\x05valid\x18\r \x01(\bR\x05valid\x12\x12\n" +
+	"\x04name\x18\x0e \x01(\tR\x04name\"\x92\x01\n" +
 	"\x18PutTenantDatabaseRequest\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12\x1e\n" +
 	"\n" +
@@ -791,7 +1254,43 @@ const file_keyserver_v1_service_proto_rawDesc = "" +
 	"expires_at\x18\n" +
 	" \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12\x1b\n" +
 	"\tshared_db\x18\v \x01(\bR\bsharedDb\x12\x14\n" +
-	"\x05valid\x18\f \x01(\bR\x05valid\"\xde\x01\n" +
+	"\x05valid\x18\f \x01(\bR\x05valid\"s\n" +
+	"\x10RevokeKeyRequest\x12\x15\n" +
+	"\x06key_id\x18\x01 \x01(\tR\x05keyId\x12\x1b\n" +
+	"\ttenant_id\x18\x02 \x01(\tR\btenantId\x12+\n" +
+	"\x12replaced_by_key_id\x18\x03 \x01(\tR\x0freplacedByKeyId\"\x13\n" +
+	"\x11RevokeKeyResponse\"h\n" +
+	"\x0fListKeysRequest\x12\x1b\n" +
+	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12\x1d\n" +
+	"\n" +
+	"owner_type\x18\x02 \x01(\tR\townerType\x12\x19\n" +
+	"\bowner_id\x18\x03 \x01(\tR\aownerId\"=\n" +
+	"\x10ListKeysResponse\x12)\n" +
+	"\x04keys\x18\x01 \x03(\v2\x15.keyserver.v1.KeyInfoR\x04keys\"C\n" +
+	"\rGetKeyRequest\x12\x15\n" +
+	"\x06key_id\x18\x01 \x01(\tR\x05keyId\x12\x1b\n" +
+	"\ttenant_id\x18\x02 \x01(\tR\btenantId\"9\n" +
+	"\x0eGetKeyResponse\x12'\n" +
+	"\x03key\x18\x01 \x01(\v2\x15.keyserver.v1.KeyInfoR\x03key\"\xf1\x03\n" +
+	"\aKeyInfo\x12\x15\n" +
+	"\x06key_id\x18\x01 \x01(\tR\x05keyId\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1d\n" +
+	"\n" +
+	"owner_type\x18\x03 \x01(\tR\townerType\x12\x19\n" +
+	"\bowner_id\x18\x04 \x01(\tR\aownerId\x12\x1b\n" +
+	"\ttenant_id\x18\x05 \x01(\tR\btenantId\x12)\n" +
+	"\x11issued_by_user_id\x18\x06 \x01(\tR\x0eissuedByUserId\x12\x16\n" +
+	"\x06scopes\x18\a \x03(\tR\x06scopes\x129\n" +
+	"\n" +
+	"created_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"\n" +
+	"expires_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x129\n" +
+	"\n" +
+	"revoked_at\x18\n" +
+	" \x01(\v2\x1a.google.protobuf.TimestampR\trevokedAt\x12&\n" +
+	"\x0freplaces_key_id\x18\v \x01(\tR\rreplacesKeyId\x12+\n" +
+	"\x12replaced_by_key_id\x18\f \x01(\tR\x0freplacedByKeyId\x12\x1b\n" +
+	"\tshared_db\x18\r \x01(\bR\bsharedDb\"\xde\x01\n" +
 	"\x0fDatabaseDetails\x12\x16\n" +
 	"\x06engine\x18\x01 \x01(\tR\x06engine\x12\x12\n" +
 	"\x04host\x18\x02 \x01(\tR\x04host\x12\x12\n" +
@@ -803,12 +1302,15 @@ const file_keyserver_v1_service_proto_rawDesc = "" +
 	"\tdedicated\x18\b \x01(\bR\tdedicated\"\x10\n" +
 	"\x0eHealthzRequest\")\n" +
 	"\x0fHealthzResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status2\xe2\x02\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status2\xc0\x04\n" +
 	"\n" +
 	"KeyService\x12R\n" +
 	"\vGenerateKey\x12 .keyserver.v1.GenerateKeyRequest\x1a!.keyserver.v1.GenerateKeyResponse\x12d\n" +
 	"\x11PutTenantDatabase\x12&.keyserver.v1.PutTenantDatabaseRequest\x1a'.keyserver.v1.PutTenantDatabaseResponse\x12R\n" +
-	"\vValidateKey\x12 .keyserver.v1.ValidateKeyRequest\x1a!.keyserver.v1.ValidateKeyResponse\x12F\n" +
+	"\vValidateKey\x12 .keyserver.v1.ValidateKeyRequest\x1a!.keyserver.v1.ValidateKeyResponse\x12L\n" +
+	"\tRevokeKey\x12\x1e.keyserver.v1.RevokeKeyRequest\x1a\x1f.keyserver.v1.RevokeKeyResponse\x12I\n" +
+	"\bListKeys\x12\x1d.keyserver.v1.ListKeysRequest\x1a\x1e.keyserver.v1.ListKeysResponse\x12C\n" +
+	"\x06GetKey\x12\x1b.keyserver.v1.GetKeyRequest\x1a\x1c.keyserver.v1.GetKeyResponse\x12F\n" +
 	"\aHealthz\x12\x1c.keyserver.v1.HealthzRequest\x1a\x1d.keyserver.v1.HealthzResponseB9Z7github.com/policies2/protobufs/keyserver/v1;keyserverv1b\x06proto3"
 
 var (
@@ -823,7 +1325,7 @@ func file_keyserver_v1_service_proto_rawDescGZIP() []byte {
 	return file_keyserver_v1_service_proto_rawDescData
 }
 
-var file_keyserver_v1_service_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_keyserver_v1_service_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_keyserver_v1_service_proto_goTypes = []any{
 	(*GenerateKeyRequest)(nil),        // 0: keyserver.v1.GenerateKeyRequest
 	(*GenerateKeyResponse)(nil),       // 1: keyserver.v1.GenerateKeyResponse
@@ -831,32 +1333,50 @@ var file_keyserver_v1_service_proto_goTypes = []any{
 	(*PutTenantDatabaseResponse)(nil), // 3: keyserver.v1.PutTenantDatabaseResponse
 	(*ValidateKeyRequest)(nil),        // 4: keyserver.v1.ValidateKeyRequest
 	(*ValidateKeyResponse)(nil),       // 5: keyserver.v1.ValidateKeyResponse
-	(*DatabaseDetails)(nil),           // 6: keyserver.v1.DatabaseDetails
-	(*HealthzRequest)(nil),            // 7: keyserver.v1.HealthzRequest
-	(*HealthzResponse)(nil),           // 8: keyserver.v1.HealthzResponse
-	(*timestamppb.Timestamp)(nil),     // 9: google.protobuf.Timestamp
+	(*RevokeKeyRequest)(nil),          // 6: keyserver.v1.RevokeKeyRequest
+	(*RevokeKeyResponse)(nil),         // 7: keyserver.v1.RevokeKeyResponse
+	(*ListKeysRequest)(nil),           // 8: keyserver.v1.ListKeysRequest
+	(*ListKeysResponse)(nil),          // 9: keyserver.v1.ListKeysResponse
+	(*GetKeyRequest)(nil),             // 10: keyserver.v1.GetKeyRequest
+	(*GetKeyResponse)(nil),            // 11: keyserver.v1.GetKeyResponse
+	(*KeyInfo)(nil),                   // 12: keyserver.v1.KeyInfo
+	(*DatabaseDetails)(nil),           // 13: keyserver.v1.DatabaseDetails
+	(*HealthzRequest)(nil),            // 14: keyserver.v1.HealthzRequest
+	(*HealthzResponse)(nil),           // 15: keyserver.v1.HealthzResponse
+	(*timestamppb.Timestamp)(nil),     // 16: google.protobuf.Timestamp
 }
 var file_keyserver_v1_service_proto_depIdxs = []int32{
-	9,  // 0: keyserver.v1.GenerateKeyRequest.expires_at:type_name -> google.protobuf.Timestamp
-	9,  // 1: keyserver.v1.GenerateKeyResponse.created_at:type_name -> google.protobuf.Timestamp
-	9,  // 2: keyserver.v1.GenerateKeyResponse.expires_at:type_name -> google.protobuf.Timestamp
-	6,  // 3: keyserver.v1.PutTenantDatabaseRequest.database:type_name -> keyserver.v1.DatabaseDetails
-	6,  // 4: keyserver.v1.PutTenantDatabaseResponse.database:type_name -> keyserver.v1.DatabaseDetails
-	6,  // 5: keyserver.v1.ValidateKeyResponse.database:type_name -> keyserver.v1.DatabaseDetails
-	9,  // 6: keyserver.v1.ValidateKeyResponse.expires_at:type_name -> google.protobuf.Timestamp
-	0,  // 7: keyserver.v1.KeyService.GenerateKey:input_type -> keyserver.v1.GenerateKeyRequest
-	2,  // 8: keyserver.v1.KeyService.PutTenantDatabase:input_type -> keyserver.v1.PutTenantDatabaseRequest
-	4,  // 9: keyserver.v1.KeyService.ValidateKey:input_type -> keyserver.v1.ValidateKeyRequest
-	7,  // 10: keyserver.v1.KeyService.Healthz:input_type -> keyserver.v1.HealthzRequest
-	1,  // 11: keyserver.v1.KeyService.GenerateKey:output_type -> keyserver.v1.GenerateKeyResponse
-	3,  // 12: keyserver.v1.KeyService.PutTenantDatabase:output_type -> keyserver.v1.PutTenantDatabaseResponse
-	5,  // 13: keyserver.v1.KeyService.ValidateKey:output_type -> keyserver.v1.ValidateKeyResponse
-	8,  // 14: keyserver.v1.KeyService.Healthz:output_type -> keyserver.v1.HealthzResponse
-	11, // [11:15] is the sub-list for method output_type
-	7,  // [7:11] is the sub-list for method input_type
-	7,  // [7:7] is the sub-list for extension type_name
-	7,  // [7:7] is the sub-list for extension extendee
-	0,  // [0:7] is the sub-list for field type_name
+	16, // 0: keyserver.v1.GenerateKeyRequest.expires_at:type_name -> google.protobuf.Timestamp
+	16, // 1: keyserver.v1.GenerateKeyResponse.created_at:type_name -> google.protobuf.Timestamp
+	16, // 2: keyserver.v1.GenerateKeyResponse.expires_at:type_name -> google.protobuf.Timestamp
+	13, // 3: keyserver.v1.PutTenantDatabaseRequest.database:type_name -> keyserver.v1.DatabaseDetails
+	13, // 4: keyserver.v1.PutTenantDatabaseResponse.database:type_name -> keyserver.v1.DatabaseDetails
+	13, // 5: keyserver.v1.ValidateKeyResponse.database:type_name -> keyserver.v1.DatabaseDetails
+	16, // 6: keyserver.v1.ValidateKeyResponse.expires_at:type_name -> google.protobuf.Timestamp
+	12, // 7: keyserver.v1.ListKeysResponse.keys:type_name -> keyserver.v1.KeyInfo
+	12, // 8: keyserver.v1.GetKeyResponse.key:type_name -> keyserver.v1.KeyInfo
+	16, // 9: keyserver.v1.KeyInfo.created_at:type_name -> google.protobuf.Timestamp
+	16, // 10: keyserver.v1.KeyInfo.expires_at:type_name -> google.protobuf.Timestamp
+	16, // 11: keyserver.v1.KeyInfo.revoked_at:type_name -> google.protobuf.Timestamp
+	0,  // 12: keyserver.v1.KeyService.GenerateKey:input_type -> keyserver.v1.GenerateKeyRequest
+	2,  // 13: keyserver.v1.KeyService.PutTenantDatabase:input_type -> keyserver.v1.PutTenantDatabaseRequest
+	4,  // 14: keyserver.v1.KeyService.ValidateKey:input_type -> keyserver.v1.ValidateKeyRequest
+	6,  // 15: keyserver.v1.KeyService.RevokeKey:input_type -> keyserver.v1.RevokeKeyRequest
+	8,  // 16: keyserver.v1.KeyService.ListKeys:input_type -> keyserver.v1.ListKeysRequest
+	10, // 17: keyserver.v1.KeyService.GetKey:input_type -> keyserver.v1.GetKeyRequest
+	14, // 18: keyserver.v1.KeyService.Healthz:input_type -> keyserver.v1.HealthzRequest
+	1,  // 19: keyserver.v1.KeyService.GenerateKey:output_type -> keyserver.v1.GenerateKeyResponse
+	3,  // 20: keyserver.v1.KeyService.PutTenantDatabase:output_type -> keyserver.v1.PutTenantDatabaseResponse
+	5,  // 21: keyserver.v1.KeyService.ValidateKey:output_type -> keyserver.v1.ValidateKeyResponse
+	7,  // 22: keyserver.v1.KeyService.RevokeKey:output_type -> keyserver.v1.RevokeKeyResponse
+	9,  // 23: keyserver.v1.KeyService.ListKeys:output_type -> keyserver.v1.ListKeysResponse
+	11, // 24: keyserver.v1.KeyService.GetKey:output_type -> keyserver.v1.GetKeyResponse
+	15, // 25: keyserver.v1.KeyService.Healthz:output_type -> keyserver.v1.HealthzResponse
+	19, // [19:26] is the sub-list for method output_type
+	12, // [12:19] is the sub-list for method input_type
+	12, // [12:12] is the sub-list for extension type_name
+	12, // [12:12] is the sub-list for extension extendee
+	0,  // [0:12] is the sub-list for field type_name
 }
 
 func init() { file_keyserver_v1_service_proto_init() }
@@ -870,7 +1390,7 @@ func file_keyserver_v1_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_keyserver_v1_service_proto_rawDesc), len(file_keyserver_v1_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
