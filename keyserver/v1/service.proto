@@ -10,6 +10,9 @@ service KeyService {
   rpc GenerateKey(GenerateKeyRequest) returns (GenerateKeyResponse);
   rpc PutTenantDatabase(PutTenantDatabaseRequest) returns (PutTenantDatabaseResponse);
   rpc ValidateKey(ValidateKeyRequest) returns (ValidateKeyResponse);
+  rpc RevokeKey(RevokeKeyRequest) returns (RevokeKeyResponse);
+  rpc ListKeys(ListKeysRequest) returns (ListKeysResponse);
+  rpc GetKey(GetKeyRequest) returns (GetKeyResponse);
   rpc Healthz(HealthzRequest) returns (HealthzResponse);
 }
 
@@ -21,6 +24,8 @@ message GenerateKeyRequest {
   string issued_by_user_id = 5;
   google.protobuf.Timestamp expires_at = 6;
   bool shared_db = 7;
+  string name = 8;
+  string replaces_key_id = 9;
 }
 
 message GenerateKeyResponse {
@@ -37,6 +42,7 @@ message GenerateKeyResponse {
   google.protobuf.Timestamp expires_at = 11;
   bool shared_db = 12;
   bool valid = 13;
+  string name = 14;
 }
 
 message PutTenantDatabaseRequest {
@@ -68,6 +74,49 @@ message ValidateKeyResponse {
   google.protobuf.Timestamp expires_at = 10;
   bool shared_db = 11;
   bool valid = 12;
+}
+
+message RevokeKeyRequest {
+  string key_id = 1;
+  string tenant_id = 2;
+  string replaced_by_key_id = 3;
+}
+
+message RevokeKeyResponse {}
+
+message ListKeysRequest {
+  string tenant_id = 1;
+  string owner_type = 2;
+  string owner_id = 3;
+}
+
+message ListKeysResponse {
+  repeated KeyInfo keys = 1;
+}
+
+message GetKeyRequest {
+  string key_id = 1;
+  string tenant_id = 2;
+}
+
+message GetKeyResponse {
+  KeyInfo key = 1;
+}
+
+message KeyInfo {
+  string key_id = 1;
+  string name = 2;
+  string owner_type = 3;
+  string owner_id = 4;
+  string tenant_id = 5;
+  string issued_by_user_id = 6;
+  repeated string scopes = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp expires_at = 9;
+  google.protobuf.Timestamp revoked_at = 10;
+  string replaces_key_id = 11;
+  string replaced_by_key_id = 12;
+  bool shared_db = 13;
 }
 
 message DatabaseDetails {

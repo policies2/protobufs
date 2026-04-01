@@ -22,6 +22,9 @@ const (
 	KeyService_GenerateKey_FullMethodName       = "/keyserver.v1.KeyService/GenerateKey"
 	KeyService_PutTenantDatabase_FullMethodName = "/keyserver.v1.KeyService/PutTenantDatabase"
 	KeyService_ValidateKey_FullMethodName       = "/keyserver.v1.KeyService/ValidateKey"
+	KeyService_RevokeKey_FullMethodName         = "/keyserver.v1.KeyService/RevokeKey"
+	KeyService_ListKeys_FullMethodName          = "/keyserver.v1.KeyService/ListKeys"
+	KeyService_GetKey_FullMethodName            = "/keyserver.v1.KeyService/GetKey"
 	KeyService_Healthz_FullMethodName           = "/keyserver.v1.KeyService/Healthz"
 )
 
@@ -32,6 +35,9 @@ type KeyServiceClient interface {
 	GenerateKey(ctx context.Context, in *GenerateKeyRequest, opts ...grpc.CallOption) (*GenerateKeyResponse, error)
 	PutTenantDatabase(ctx context.Context, in *PutTenantDatabaseRequest, opts ...grpc.CallOption) (*PutTenantDatabaseResponse, error)
 	ValidateKey(ctx context.Context, in *ValidateKeyRequest, opts ...grpc.CallOption) (*ValidateKeyResponse, error)
+	RevokeKey(ctx context.Context, in *RevokeKeyRequest, opts ...grpc.CallOption) (*RevokeKeyResponse, error)
+	ListKeys(ctx context.Context, in *ListKeysRequest, opts ...grpc.CallOption) (*ListKeysResponse, error)
+	GetKey(ctx context.Context, in *GetKeyRequest, opts ...grpc.CallOption) (*GetKeyResponse, error)
 	Healthz(ctx context.Context, in *HealthzRequest, opts ...grpc.CallOption) (*HealthzResponse, error)
 }
 
@@ -73,6 +79,36 @@ func (c *keyServiceClient) ValidateKey(ctx context.Context, in *ValidateKeyReque
 	return out, nil
 }
 
+func (c *keyServiceClient) RevokeKey(ctx context.Context, in *RevokeKeyRequest, opts ...grpc.CallOption) (*RevokeKeyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RevokeKeyResponse)
+	err := c.cc.Invoke(ctx, KeyService_RevokeKey_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyServiceClient) ListKeys(ctx context.Context, in *ListKeysRequest, opts ...grpc.CallOption) (*ListKeysResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListKeysResponse)
+	err := c.cc.Invoke(ctx, KeyService_ListKeys_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *keyServiceClient) GetKey(ctx context.Context, in *GetKeyRequest, opts ...grpc.CallOption) (*GetKeyResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetKeyResponse)
+	err := c.cc.Invoke(ctx, KeyService_GetKey_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *keyServiceClient) Healthz(ctx context.Context, in *HealthzRequest, opts ...grpc.CallOption) (*HealthzResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(HealthzResponse)
@@ -90,6 +126,9 @@ type KeyServiceServer interface {
 	GenerateKey(context.Context, *GenerateKeyRequest) (*GenerateKeyResponse, error)
 	PutTenantDatabase(context.Context, *PutTenantDatabaseRequest) (*PutTenantDatabaseResponse, error)
 	ValidateKey(context.Context, *ValidateKeyRequest) (*ValidateKeyResponse, error)
+	RevokeKey(context.Context, *RevokeKeyRequest) (*RevokeKeyResponse, error)
+	ListKeys(context.Context, *ListKeysRequest) (*ListKeysResponse, error)
+	GetKey(context.Context, *GetKeyRequest) (*GetKeyResponse, error)
 	Healthz(context.Context, *HealthzRequest) (*HealthzResponse, error)
 	mustEmbedUnimplementedKeyServiceServer()
 }
@@ -109,6 +148,15 @@ func (UnimplementedKeyServiceServer) PutTenantDatabase(context.Context, *PutTena
 }
 func (UnimplementedKeyServiceServer) ValidateKey(context.Context, *ValidateKeyRequest) (*ValidateKeyResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ValidateKey not implemented")
+}
+func (UnimplementedKeyServiceServer) RevokeKey(context.Context, *RevokeKeyRequest) (*RevokeKeyResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RevokeKey not implemented")
+}
+func (UnimplementedKeyServiceServer) ListKeys(context.Context, *ListKeysRequest) (*ListKeysResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListKeys not implemented")
+}
+func (UnimplementedKeyServiceServer) GetKey(context.Context, *GetKeyRequest) (*GetKeyResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetKey not implemented")
 }
 func (UnimplementedKeyServiceServer) Healthz(context.Context, *HealthzRequest) (*HealthzResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Healthz not implemented")
@@ -188,6 +236,60 @@ func _KeyService_ValidateKey_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _KeyService_RevokeKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RevokeKeyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyServiceServer).RevokeKey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyService_RevokeKey_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyServiceServer).RevokeKey(ctx, req.(*RevokeKeyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyService_ListKeys_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListKeysRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyServiceServer).ListKeys(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyService_ListKeys_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyServiceServer).ListKeys(ctx, req.(*ListKeysRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _KeyService_GetKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetKeyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyServiceServer).GetKey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyService_GetKey_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyServiceServer).GetKey(ctx, req.(*GetKeyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _KeyService_Healthz_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HealthzRequest)
 	if err := dec(in); err != nil {
@@ -224,6 +326,18 @@ var KeyService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ValidateKey",
 			Handler:    _KeyService_ValidateKey_Handler,
+		},
+		{
+			MethodName: "RevokeKey",
+			Handler:    _KeyService_RevokeKey_Handler,
+		},
+		{
+			MethodName: "ListKeys",
+			Handler:    _KeyService_ListKeys_Handler,
+		},
+		{
+			MethodName: "GetKey",
+			Handler:    _KeyService_GetKey_Handler,
 		},
 		{
 			MethodName: "Healthz",
