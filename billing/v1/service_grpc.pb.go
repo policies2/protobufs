@@ -31,8 +31,8 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BillingServiceClient interface {
-	UpsertAccount(ctx context.Context, in *UpsertAccountRequest, opts ...grpc.CallOption) (*Account, error)
-	GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*Account, error)
+	UpsertAccount(ctx context.Context, in *UpsertAccountRequest, opts ...grpc.CallOption) (*UpsertAccountResponse, error)
+	GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*GetAccountResponse, error)
 	AuthorizeLease(ctx context.Context, in *AuthorizeLeaseRequest, opts ...grpc.CallOption) (*AuthorizeLeaseResponse, error)
 	RecordUsage(ctx context.Context, in *RecordUsageRequest, opts ...grpc.CallOption) (*RecordUsageResponse, error)
 	ReleaseLease(ctx context.Context, in *ReleaseLeaseRequest, opts ...grpc.CallOption) (*ReleaseLeaseResponse, error)
@@ -47,9 +47,9 @@ func NewBillingServiceClient(cc grpc.ClientConnInterface) BillingServiceClient {
 	return &billingServiceClient{cc}
 }
 
-func (c *billingServiceClient) UpsertAccount(ctx context.Context, in *UpsertAccountRequest, opts ...grpc.CallOption) (*Account, error) {
+func (c *billingServiceClient) UpsertAccount(ctx context.Context, in *UpsertAccountRequest, opts ...grpc.CallOption) (*UpsertAccountResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Account)
+	out := new(UpsertAccountResponse)
 	err := c.cc.Invoke(ctx, BillingService_UpsertAccount_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -57,9 +57,9 @@ func (c *billingServiceClient) UpsertAccount(ctx context.Context, in *UpsertAcco
 	return out, nil
 }
 
-func (c *billingServiceClient) GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*Account, error) {
+func (c *billingServiceClient) GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*GetAccountResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(Account)
+	out := new(GetAccountResponse)
 	err := c.cc.Invoke(ctx, BillingService_GetAccount_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -111,8 +111,8 @@ func (c *billingServiceClient) Healthz(ctx context.Context, in *HealthzRequest, 
 // All implementations must embed UnimplementedBillingServiceServer
 // for forward compatibility.
 type BillingServiceServer interface {
-	UpsertAccount(context.Context, *UpsertAccountRequest) (*Account, error)
-	GetAccount(context.Context, *GetAccountRequest) (*Account, error)
+	UpsertAccount(context.Context, *UpsertAccountRequest) (*UpsertAccountResponse, error)
+	GetAccount(context.Context, *GetAccountRequest) (*GetAccountResponse, error)
 	AuthorizeLease(context.Context, *AuthorizeLeaseRequest) (*AuthorizeLeaseResponse, error)
 	RecordUsage(context.Context, *RecordUsageRequest) (*RecordUsageResponse, error)
 	ReleaseLease(context.Context, *ReleaseLeaseRequest) (*ReleaseLeaseResponse, error)
@@ -127,10 +127,10 @@ type BillingServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedBillingServiceServer struct{}
 
-func (UnimplementedBillingServiceServer) UpsertAccount(context.Context, *UpsertAccountRequest) (*Account, error) {
+func (UnimplementedBillingServiceServer) UpsertAccount(context.Context, *UpsertAccountRequest) (*UpsertAccountResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpsertAccount not implemented")
 }
-func (UnimplementedBillingServiceServer) GetAccount(context.Context, *GetAccountRequest) (*Account, error) {
+func (UnimplementedBillingServiceServer) GetAccount(context.Context, *GetAccountRequest) (*GetAccountResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetAccount not implemented")
 }
 func (UnimplementedBillingServiceServer) AuthorizeLease(context.Context, *AuthorizeLeaseRequest) (*AuthorizeLeaseResponse, error) {

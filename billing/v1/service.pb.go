@@ -401,6 +401,94 @@ func (x *GetAccountRequest) GetOrgId() string {
 	return ""
 }
 
+type UpsertAccountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Account       *Account               `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpsertAccountResponse) Reset() {
+	*x = UpsertAccountResponse{}
+	mi := &file_billing_v1_service_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpsertAccountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpsertAccountResponse) ProtoMessage() {}
+
+func (x *UpsertAccountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_billing_v1_service_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpsertAccountResponse.ProtoReflect.Descriptor instead.
+func (*UpsertAccountResponse) Descriptor() ([]byte, []int) {
+	return file_billing_v1_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *UpsertAccountResponse) GetAccount() *Account {
+	if x != nil {
+		return x.Account
+	}
+	return nil
+}
+
+type GetAccountResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Account       *Account               `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAccountResponse) Reset() {
+	*x = GetAccountResponse{}
+	mi := &file_billing_v1_service_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAccountResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAccountResponse) ProtoMessage() {}
+
+func (x *GetAccountResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_billing_v1_service_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAccountResponse.ProtoReflect.Descriptor instead.
+func (*GetAccountResponse) Descriptor() ([]byte, []int) {
+	return file_billing_v1_service_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *GetAccountResponse) GetAccount() *Account {
+	if x != nil {
+		return x.Account
+	}
+	return nil
+}
+
 type Lease struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
 	LeaseId          string                 `protobuf:"bytes,1,opt,name=lease_id,json=leaseId,proto3" json:"lease_id,omitempty"`
@@ -421,7 +509,7 @@ type Lease struct {
 
 func (x *Lease) Reset() {
 	*x = Lease{}
-	mi := &file_billing_v1_service_proto_msgTypes[5]
+	mi := &file_billing_v1_service_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -433,7 +521,7 @@ func (x *Lease) String() string {
 func (*Lease) ProtoMessage() {}
 
 func (x *Lease) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_v1_service_proto_msgTypes[5]
+	mi := &file_billing_v1_service_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -446,7 +534,7 @@ func (x *Lease) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Lease.ProtoReflect.Descriptor instead.
 func (*Lease) Descriptor() ([]byte, []int) {
-	return file_billing_v1_service_proto_rawDescGZIP(), []int{5}
+	return file_billing_v1_service_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *Lease) GetLeaseId() string {
@@ -546,7 +634,7 @@ type AuthorizeLeaseRequest struct {
 
 func (x *AuthorizeLeaseRequest) Reset() {
 	*x = AuthorizeLeaseRequest{}
-	mi := &file_billing_v1_service_proto_msgTypes[6]
+	mi := &file_billing_v1_service_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -558,7 +646,7 @@ func (x *AuthorizeLeaseRequest) String() string {
 func (*AuthorizeLeaseRequest) ProtoMessage() {}
 
 func (x *AuthorizeLeaseRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_v1_service_proto_msgTypes[6]
+	mi := &file_billing_v1_service_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -571,7 +659,7 @@ func (x *AuthorizeLeaseRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AuthorizeLeaseRequest.ProtoReflect.Descriptor instead.
 func (*AuthorizeLeaseRequest) Descriptor() ([]byte, []int) {
-	return file_billing_v1_service_proto_rawDescGZIP(), []int{6}
+	return file_billing_v1_service_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *AuthorizeLeaseRequest) GetOrgId() string {
@@ -626,7 +714,7 @@ type AuthorizeLeaseResponse struct {
 
 func (x *AuthorizeLeaseResponse) Reset() {
 	*x = AuthorizeLeaseResponse{}
-	mi := &file_billing_v1_service_proto_msgTypes[7]
+	mi := &file_billing_v1_service_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -638,7 +726,7 @@ func (x *AuthorizeLeaseResponse) String() string {
 func (*AuthorizeLeaseResponse) ProtoMessage() {}
 
 func (x *AuthorizeLeaseResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_v1_service_proto_msgTypes[7]
+	mi := &file_billing_v1_service_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -651,7 +739,7 @@ func (x *AuthorizeLeaseResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AuthorizeLeaseResponse.ProtoReflect.Descriptor instead.
 func (*AuthorizeLeaseResponse) Descriptor() ([]byte, []int) {
-	return file_billing_v1_service_proto_rawDescGZIP(), []int{7}
+	return file_billing_v1_service_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *AuthorizeLeaseResponse) GetAllowed() bool {
@@ -728,7 +816,7 @@ type RecordUsageRequest struct {
 
 func (x *RecordUsageRequest) Reset() {
 	*x = RecordUsageRequest{}
-	mi := &file_billing_v1_service_proto_msgTypes[8]
+	mi := &file_billing_v1_service_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -740,7 +828,7 @@ func (x *RecordUsageRequest) String() string {
 func (*RecordUsageRequest) ProtoMessage() {}
 
 func (x *RecordUsageRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_v1_service_proto_msgTypes[8]
+	mi := &file_billing_v1_service_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -753,7 +841,7 @@ func (x *RecordUsageRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RecordUsageRequest.ProtoReflect.Descriptor instead.
 func (*RecordUsageRequest) Descriptor() ([]byte, []int) {
-	return file_billing_v1_service_proto_rawDescGZIP(), []int{8}
+	return file_billing_v1_service_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *RecordUsageRequest) GetLeaseId() string {
@@ -788,7 +876,7 @@ type RecordUsageResponse struct {
 
 func (x *RecordUsageResponse) Reset() {
 	*x = RecordUsageResponse{}
-	mi := &file_billing_v1_service_proto_msgTypes[9]
+	mi := &file_billing_v1_service_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -800,7 +888,7 @@ func (x *RecordUsageResponse) String() string {
 func (*RecordUsageResponse) ProtoMessage() {}
 
 func (x *RecordUsageResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_v1_service_proto_msgTypes[9]
+	mi := &file_billing_v1_service_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -813,7 +901,7 @@ func (x *RecordUsageResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RecordUsageResponse.ProtoReflect.Descriptor instead.
 func (*RecordUsageResponse) Descriptor() ([]byte, []int) {
-	return file_billing_v1_service_proto_rawDescGZIP(), []int{9}
+	return file_billing_v1_service_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *RecordUsageResponse) GetLease() *Lease {
@@ -846,7 +934,7 @@ type ReleaseLeaseRequest struct {
 
 func (x *ReleaseLeaseRequest) Reset() {
 	*x = ReleaseLeaseRequest{}
-	mi := &file_billing_v1_service_proto_msgTypes[10]
+	mi := &file_billing_v1_service_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -858,7 +946,7 @@ func (x *ReleaseLeaseRequest) String() string {
 func (*ReleaseLeaseRequest) ProtoMessage() {}
 
 func (x *ReleaseLeaseRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_v1_service_proto_msgTypes[10]
+	mi := &file_billing_v1_service_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -871,7 +959,7 @@ func (x *ReleaseLeaseRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReleaseLeaseRequest.ProtoReflect.Descriptor instead.
 func (*ReleaseLeaseRequest) Descriptor() ([]byte, []int) {
-	return file_billing_v1_service_proto_rawDescGZIP(), []int{10}
+	return file_billing_v1_service_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *ReleaseLeaseRequest) GetLeaseId() string {
@@ -892,7 +980,7 @@ type ReleaseLeaseResponse struct {
 
 func (x *ReleaseLeaseResponse) Reset() {
 	*x = ReleaseLeaseResponse{}
-	mi := &file_billing_v1_service_proto_msgTypes[11]
+	mi := &file_billing_v1_service_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -904,7 +992,7 @@ func (x *ReleaseLeaseResponse) String() string {
 func (*ReleaseLeaseResponse) ProtoMessage() {}
 
 func (x *ReleaseLeaseResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_v1_service_proto_msgTypes[11]
+	mi := &file_billing_v1_service_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -917,7 +1005,7 @@ func (x *ReleaseLeaseResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReleaseLeaseResponse.ProtoReflect.Descriptor instead.
 func (*ReleaseLeaseResponse) Descriptor() ([]byte, []int) {
-	return file_billing_v1_service_proto_rawDescGZIP(), []int{11}
+	return file_billing_v1_service_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *ReleaseLeaseResponse) GetLease() *Lease {
@@ -949,7 +1037,7 @@ type HealthzRequest struct {
 
 func (x *HealthzRequest) Reset() {
 	*x = HealthzRequest{}
-	mi := &file_billing_v1_service_proto_msgTypes[12]
+	mi := &file_billing_v1_service_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -961,7 +1049,7 @@ func (x *HealthzRequest) String() string {
 func (*HealthzRequest) ProtoMessage() {}
 
 func (x *HealthzRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_v1_service_proto_msgTypes[12]
+	mi := &file_billing_v1_service_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -974,7 +1062,7 @@ func (x *HealthzRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthzRequest.ProtoReflect.Descriptor instead.
 func (*HealthzRequest) Descriptor() ([]byte, []int) {
-	return file_billing_v1_service_proto_rawDescGZIP(), []int{12}
+	return file_billing_v1_service_proto_rawDescGZIP(), []int{14}
 }
 
 type HealthzResponse struct {
@@ -986,7 +1074,7 @@ type HealthzResponse struct {
 
 func (x *HealthzResponse) Reset() {
 	*x = HealthzResponse{}
-	mi := &file_billing_v1_service_proto_msgTypes[13]
+	mi := &file_billing_v1_service_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -998,7 +1086,7 @@ func (x *HealthzResponse) String() string {
 func (*HealthzResponse) ProtoMessage() {}
 
 func (x *HealthzResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_billing_v1_service_proto_msgTypes[13]
+	mi := &file_billing_v1_service_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1011,7 +1099,7 @@ func (x *HealthzResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthzResponse.ProtoReflect.Descriptor instead.
 func (*HealthzResponse) Descriptor() ([]byte, []int) {
-	return file_billing_v1_service_proto_rawDescGZIP(), []int{13}
+	return file_billing_v1_service_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *HealthzResponse) GetStatus() string {
@@ -1059,7 +1147,11 @@ const file_billing_v1_service_proto_rawDesc = "" +
 	"\x12current_used_units\x18\x06 \x01(\x03R\x10currentUsedUnits\x120\n" +
 	"\x14current_period_start\x18\a \x01(\tR\x12currentPeriodStart\"*\n" +
 	"\x11GetAccountRequest\x12\x15\n" +
-	"\x06org_id\x18\x01 \x01(\tR\x05orgId\"\x95\x03\n" +
+	"\x06org_id\x18\x01 \x01(\tR\x05orgId\"F\n" +
+	"\x15UpsertAccountResponse\x12-\n" +
+	"\aaccount\x18\x01 \x01(\v2\x13.billing.v1.AccountR\aaccount\"C\n" +
+	"\x12GetAccountResponse\x12-\n" +
+	"\aaccount\x18\x01 \x01(\v2\x13.billing.v1.AccountR\aaccount\"\x95\x03\n" +
 	"\x05Lease\x12\x19\n" +
 	"\blease_id\x18\x01 \x01(\tR\aleaseId\x12\x15\n" +
 	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12\x15\n" +
@@ -1110,11 +1202,11 @@ const file_billing_v1_service_proto_rawDesc = "" +
 	"\x0ereleased_units\x18\x03 \x01(\x03R\rreleasedUnits\"\x10\n" +
 	"\x0eHealthzRequest\")\n" +
 	"\x0fHealthzResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status2\xda\x03\n" +
-	"\x0eBillingService\x12F\n" +
-	"\rUpsertAccount\x12 .billing.v1.UpsertAccountRequest\x1a\x13.billing.v1.Account\x12@\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status2\xf3\x03\n" +
+	"\x0eBillingService\x12T\n" +
+	"\rUpsertAccount\x12 .billing.v1.UpsertAccountRequest\x1a!.billing.v1.UpsertAccountResponse\x12K\n" +
 	"\n" +
-	"GetAccount\x12\x1d.billing.v1.GetAccountRequest\x1a\x13.billing.v1.Account\x12W\n" +
+	"GetAccount\x12\x1d.billing.v1.GetAccountRequest\x1a\x1e.billing.v1.GetAccountResponse\x12W\n" +
 	"\x0eAuthorizeLease\x12!.billing.v1.AuthorizeLeaseRequest\x1a\".billing.v1.AuthorizeLeaseResponse\x12N\n" +
 	"\vRecordUsage\x12\x1e.billing.v1.RecordUsageRequest\x1a\x1f.billing.v1.RecordUsageResponse\x12Q\n" +
 	"\fReleaseLease\x12\x1f.billing.v1.ReleaseLeaseRequest\x1a .billing.v1.ReleaseLeaseResponse\x12B\n" +
@@ -1132,49 +1224,53 @@ func file_billing_v1_service_proto_rawDescGZIP() []byte {
 	return file_billing_v1_service_proto_rawDescData
 }
 
-var file_billing_v1_service_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_billing_v1_service_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_billing_v1_service_proto_goTypes = []any{
 	(*Plan)(nil),                   // 0: billing.v1.Plan
 	(*UsageState)(nil),             // 1: billing.v1.UsageState
 	(*Account)(nil),                // 2: billing.v1.Account
 	(*UpsertAccountRequest)(nil),   // 3: billing.v1.UpsertAccountRequest
 	(*GetAccountRequest)(nil),      // 4: billing.v1.GetAccountRequest
-	(*Lease)(nil),                  // 5: billing.v1.Lease
-	(*AuthorizeLeaseRequest)(nil),  // 6: billing.v1.AuthorizeLeaseRequest
-	(*AuthorizeLeaseResponse)(nil), // 7: billing.v1.AuthorizeLeaseResponse
-	(*RecordUsageRequest)(nil),     // 8: billing.v1.RecordUsageRequest
-	(*RecordUsageResponse)(nil),    // 9: billing.v1.RecordUsageResponse
-	(*ReleaseLeaseRequest)(nil),    // 10: billing.v1.ReleaseLeaseRequest
-	(*ReleaseLeaseResponse)(nil),   // 11: billing.v1.ReleaseLeaseResponse
-	(*HealthzRequest)(nil),         // 12: billing.v1.HealthzRequest
-	(*HealthzResponse)(nil),        // 13: billing.v1.HealthzResponse
+	(*UpsertAccountResponse)(nil),  // 5: billing.v1.UpsertAccountResponse
+	(*GetAccountResponse)(nil),     // 6: billing.v1.GetAccountResponse
+	(*Lease)(nil),                  // 7: billing.v1.Lease
+	(*AuthorizeLeaseRequest)(nil),  // 8: billing.v1.AuthorizeLeaseRequest
+	(*AuthorizeLeaseResponse)(nil), // 9: billing.v1.AuthorizeLeaseResponse
+	(*RecordUsageRequest)(nil),     // 10: billing.v1.RecordUsageRequest
+	(*RecordUsageResponse)(nil),    // 11: billing.v1.RecordUsageResponse
+	(*ReleaseLeaseRequest)(nil),    // 12: billing.v1.ReleaseLeaseRequest
+	(*ReleaseLeaseResponse)(nil),   // 13: billing.v1.ReleaseLeaseResponse
+	(*HealthzRequest)(nil),         // 14: billing.v1.HealthzRequest
+	(*HealthzResponse)(nil),        // 15: billing.v1.HealthzResponse
 }
 var file_billing_v1_service_proto_depIdxs = []int32{
 	0,  // 0: billing.v1.Account.plan:type_name -> billing.v1.Plan
 	1,  // 1: billing.v1.Account.current:type_name -> billing.v1.UsageState
-	5,  // 2: billing.v1.AuthorizeLeaseResponse.lease:type_name -> billing.v1.Lease
-	2,  // 3: billing.v1.AuthorizeLeaseResponse.account:type_name -> billing.v1.Account
-	5,  // 4: billing.v1.RecordUsageResponse.lease:type_name -> billing.v1.Lease
-	2,  // 5: billing.v1.RecordUsageResponse.account:type_name -> billing.v1.Account
-	5,  // 6: billing.v1.ReleaseLeaseResponse.lease:type_name -> billing.v1.Lease
-	2,  // 7: billing.v1.ReleaseLeaseResponse.account:type_name -> billing.v1.Account
-	3,  // 8: billing.v1.BillingService.UpsertAccount:input_type -> billing.v1.UpsertAccountRequest
-	4,  // 9: billing.v1.BillingService.GetAccount:input_type -> billing.v1.GetAccountRequest
-	6,  // 10: billing.v1.BillingService.AuthorizeLease:input_type -> billing.v1.AuthorizeLeaseRequest
-	8,  // 11: billing.v1.BillingService.RecordUsage:input_type -> billing.v1.RecordUsageRequest
-	10, // 12: billing.v1.BillingService.ReleaseLease:input_type -> billing.v1.ReleaseLeaseRequest
-	12, // 13: billing.v1.BillingService.Healthz:input_type -> billing.v1.HealthzRequest
-	2,  // 14: billing.v1.BillingService.UpsertAccount:output_type -> billing.v1.Account
-	2,  // 15: billing.v1.BillingService.GetAccount:output_type -> billing.v1.Account
-	7,  // 16: billing.v1.BillingService.AuthorizeLease:output_type -> billing.v1.AuthorizeLeaseResponse
-	9,  // 17: billing.v1.BillingService.RecordUsage:output_type -> billing.v1.RecordUsageResponse
-	11, // 18: billing.v1.BillingService.ReleaseLease:output_type -> billing.v1.ReleaseLeaseResponse
-	13, // 19: billing.v1.BillingService.Healthz:output_type -> billing.v1.HealthzResponse
-	14, // [14:20] is the sub-list for method output_type
-	8,  // [8:14] is the sub-list for method input_type
-	8,  // [8:8] is the sub-list for extension type_name
-	8,  // [8:8] is the sub-list for extension extendee
-	0,  // [0:8] is the sub-list for field type_name
+	2,  // 2: billing.v1.UpsertAccountResponse.account:type_name -> billing.v1.Account
+	2,  // 3: billing.v1.GetAccountResponse.account:type_name -> billing.v1.Account
+	7,  // 4: billing.v1.AuthorizeLeaseResponse.lease:type_name -> billing.v1.Lease
+	2,  // 5: billing.v1.AuthorizeLeaseResponse.account:type_name -> billing.v1.Account
+	7,  // 6: billing.v1.RecordUsageResponse.lease:type_name -> billing.v1.Lease
+	2,  // 7: billing.v1.RecordUsageResponse.account:type_name -> billing.v1.Account
+	7,  // 8: billing.v1.ReleaseLeaseResponse.lease:type_name -> billing.v1.Lease
+	2,  // 9: billing.v1.ReleaseLeaseResponse.account:type_name -> billing.v1.Account
+	3,  // 10: billing.v1.BillingService.UpsertAccount:input_type -> billing.v1.UpsertAccountRequest
+	4,  // 11: billing.v1.BillingService.GetAccount:input_type -> billing.v1.GetAccountRequest
+	8,  // 12: billing.v1.BillingService.AuthorizeLease:input_type -> billing.v1.AuthorizeLeaseRequest
+	10, // 13: billing.v1.BillingService.RecordUsage:input_type -> billing.v1.RecordUsageRequest
+	12, // 14: billing.v1.BillingService.ReleaseLease:input_type -> billing.v1.ReleaseLeaseRequest
+	14, // 15: billing.v1.BillingService.Healthz:input_type -> billing.v1.HealthzRequest
+	5,  // 16: billing.v1.BillingService.UpsertAccount:output_type -> billing.v1.UpsertAccountResponse
+	6,  // 17: billing.v1.BillingService.GetAccount:output_type -> billing.v1.GetAccountResponse
+	9,  // 18: billing.v1.BillingService.AuthorizeLease:output_type -> billing.v1.AuthorizeLeaseResponse
+	11, // 19: billing.v1.BillingService.RecordUsage:output_type -> billing.v1.RecordUsageResponse
+	13, // 20: billing.v1.BillingService.ReleaseLease:output_type -> billing.v1.ReleaseLeaseResponse
+	15, // 21: billing.v1.BillingService.Healthz:output_type -> billing.v1.HealthzResponse
+	16, // [16:22] is the sub-list for method output_type
+	10, // [10:16] is the sub-list for method input_type
+	10, // [10:10] is the sub-list for extension type_name
+	10, // [10:10] is the sub-list for extension extendee
+	0,  // [0:10] is the sub-list for field type_name
 }
 
 func init() { file_billing_v1_service_proto_init() }
@@ -1188,7 +1284,7 @@ func file_billing_v1_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_billing_v1_service_proto_rawDesc), len(file_billing_v1_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

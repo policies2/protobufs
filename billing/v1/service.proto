@@ -5,8 +5,8 @@ package billing.v1;
 option go_package = "github.com/policies2/protobufs/billing/v1;billingv1";
 
 service BillingService {
-  rpc UpsertAccount(UpsertAccountRequest) returns (Account);
-  rpc GetAccount(GetAccountRequest) returns (Account);
+  rpc UpsertAccount(UpsertAccountRequest) returns (UpsertAccountResponse);
+  rpc GetAccount(GetAccountRequest) returns (GetAccountResponse);
   rpc AuthorizeLease(AuthorizeLeaseRequest) returns (AuthorizeLeaseResponse);
   rpc RecordUsage(RecordUsageRequest) returns (RecordUsageResponse);
   rpc ReleaseLease(ReleaseLeaseRequest) returns (ReleaseLeaseResponse);
@@ -51,6 +51,14 @@ message UpsertAccountRequest {
 
 message GetAccountRequest {
   string org_id = 1;
+}
+
+message UpsertAccountResponse {
+  Account account = 1;
+}
+
+message GetAccountResponse {
+  Account account = 1;
 }
 
 message Lease {
