@@ -23,7 +23,9 @@ jobs:
           cache: true
 
       - name: Setup Buf
-        uses: bufbuild/buf-setup-action@v1
+        uses: bufbuild/buf-action@v1
+        with:
+          setup_only: true
 
       - name: Lint Protos
         run: buf lint
