@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+package billing.v1;
+
+option go_package = "github.com/policies2/protobufs/billing/v1;billingv1";
+
+service BillingService {
+  rpc UpsertAccount(UpsertAccountRequest) returns (UpsertAccountResponse);
+  rpc GetAccount(GetAccountRequest) returns (GetAccountResponse);
+  rpc AuthorizeLease(AuthorizeLeaseRequest) returns (AuthorizeLeaseResponse);
+  rpc RecordUsage(RecordUsageRequest) returns (RecordUsageResponse);
+  rpc ReleaseLease(ReleaseLeaseRequest) returns (ReleaseLeaseResponse);
+  rpc Healthz(HealthzRequest) returns (HealthzResponse);
+}
+
+message Plan {
+  string plan_id = 1;
+  int64 monthly_allowance = 2;
+  int64 base_grace_percent = 3;
+  int64 default_lease_units = 4;
+}
+
+message UsageState {
+  string period_start_utc = 1;
+  int64 used_units = 2;
+  int64 reserved_units = 3;
+}
+
+message Account {
+  string org_id = 1;
+  Plan plan = 2;
+  UsageState current = 3;
+  int64 grace_percent = 4;
+  int64 grace_allowance = 5;
+  int64 available_units = 6;
+  bool overage_used_this_period = 7;
+  int32 consecutive_grace_penalties = 8;
+  int32 clean_months_since_overage = 9;
+  string updated_at_utc = 10;
+}
+
+message UpsertAccountRequest {
+  string org_id = 1;
+  string plan_id = 2;
+  int64 monthly_allowance = 3;
+  int64 base_grace_percent = 4;
+  int64 default_lease_units = 5;
+  int64 current_used_units = 6;
+  string current_period_start = 7;
+}
+
+message GetAccountRequest {
+  string org_id = 1;
+}
+
+message UpsertAccountResponse {
+  Account account = 1;
+}
+
+message GetAccountResponse {
+  Account account = 1;
+}
+
+message Lease {
+  string lease_id = 1;
+  string org_id = 2;
+  string key_id = 3;
+  string key_kind = 4;
+  int64 reserved_units = 5;
+  int64 consumed_units = 6;
+  int64 remaining_units = 7;
+  string expires_at_utc = 8;
+  string period_start_utc = 9;
+  bool released = 10;
+  bool counted = 11;
+  int32 idempotency_count = 12;
+}
+
+message AuthorizeLeaseRequest {
+  string org_id = 1;
+  string key_id = 2;
+  string key_kind = 3;
+  int64 requested_units = 4;
+  int64 ttl_seconds = 5;
+}
+
+message AuthorizeLeaseResponse {
+  bool allowed = 1;
+  bool counted = 2;
+  string denial_reason = 3;
+  Lease lease = 4;
+  Account account = 5;
+  int64 granted_units = 6;
+  int64 requested_units = 7;
+  int64 remaining_units = 8;
+  string message = 9;
+}
+
+message RecordUsageRequest {
+  string lease_id = 1;
+  int64 used_units = 2;
+  string idempotency_key = 3;
+}
+
+message RecordUsageResponse {
+  Lease lease = 1;
+  Account account = 2;
+  bool idempotent = 3;
+}
+
+message ReleaseLeaseRequest {
+  string lease_id = 1;
+}
+
+message ReleaseLeaseResponse {
+  Lease lease = 1;
+  Account account = 2;
+  int64 released_units = 3;
+}
+
+message HealthzRequest {}
+
+message HealthzResponse {
+  string status = 1;
+}
