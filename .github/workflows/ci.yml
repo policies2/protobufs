@@ -40,3 +40,17 @@ jobs:
 
       - name: Verify Go Bindings Build
         run: go test ./...
+  update_release_draft:
+    needs:
+      - validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: release-drafter/release-drafter@v7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          config-name: release-drafter.yml
