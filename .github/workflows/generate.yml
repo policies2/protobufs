@@ -8,6 +8,7 @@ on:
       - "keyserver/**/*.proto"
       - "policy/**/*.proto"
       - "provisioner/**/*.proto"
+      - "billing/**/*.proto"
       - "buf.gen.yaml"
       - "buf.yaml"
       - ".github/workflows/generate.yml"

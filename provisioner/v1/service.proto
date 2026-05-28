@@ -23,6 +23,7 @@ message ProvisionTenantDatabaseResponse {
   keyserver.v1.DatabaseDetails database = 3;
   bool migration_applied = 4;
   bool already_existed = 5;
+  optional string status = 99;
 }
 
 message HealthzRequest {}
