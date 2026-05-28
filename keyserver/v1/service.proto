@@ -87,7 +87,7 @@ message RevokeKeyRequest {
 
 message RevokeKeyResponse {
   bool revoked = 1;
-  optional string status - 99;
+  optional string status = 99;
 }
 
 message ListKeysRequest {
