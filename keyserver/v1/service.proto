@@ -43,6 +43,7 @@ message GenerateKeyResponse {
   bool shared_db = 12;
   bool valid = 13;
   string name = 14;
+  optional string status = 99;
 }
 
 message PutTenantDatabaseRequest {
@@ -55,6 +56,7 @@ message PutTenantDatabaseResponse {
   string tenant_id = 1;
   bool enterprise = 2;
   DatabaseDetails database = 3;
+  optional string status = 99;
 }
 
 message ValidateKeyRequest {
@@ -74,6 +76,7 @@ message ValidateKeyResponse {
   google.protobuf.Timestamp expires_at = 10;
   bool shared_db = 11;
   bool valid = 12;
+  optional string status = 99;
 }
 
 message RevokeKeyRequest {
@@ -82,7 +85,10 @@ message RevokeKeyRequest {
   string replaced_by_key_id = 3;
 }
 
-message RevokeKeyResponse {}
+message RevokeKeyResponse {
+  bool revoked = 1;
+  optional string status - 99;
+}
 
 message ListKeysRequest {
   string tenant_id = 1;
@@ -92,6 +98,7 @@ message ListKeysRequest {
 
 message ListKeysResponse {
   repeated KeyInfo keys = 1;
+  optional string status = 99;
 }
 
 message GetKeyRequest {
@@ -101,6 +108,7 @@ message GetKeyRequest {
 
 message GetKeyResponse {
   KeyInfo key = 1;
+  optional string status = 99;
 }
 
 message KeyInfo {
