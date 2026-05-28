@@ -159,6 +159,7 @@ type RunResponse struct {
 	Error         *structpb.Struct       `protobuf:"bytes,5,opt,name=error,proto3" json:"error,omitempty"`         // Errors if any
 	Labels        *structpb.Struct       `protobuf:"bytes,6,opt,name=labels,proto3" json:"labels,omitempty"`       // Labels
 	Execution     *ExecutionTiming       `protobuf:"bytes,7,opt,name=execution,proto3" json:"execution,omitempty"` // Timing breakdown
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -242,6 +243,13 @@ func (x *RunResponse) GetExecution() *ExecutionTiming {
 	return nil
 }
 
+func (x *RunResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
+}
+
 type RunPolicyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Result        bool                   `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`      // Policy evaluation result
@@ -251,6 +259,7 @@ type RunPolicyResponse struct {
 	Error         *structpb.Struct       `protobuf:"bytes,5,opt,name=error,proto3" json:"error,omitempty"`         // Errors if any
 	Labels        *structpb.Struct       `protobuf:"bytes,6,opt,name=labels,proto3" json:"labels,omitempty"`       // Labels
 	Execution     *ExecutionTiming       `protobuf:"bytes,7,opt,name=execution,proto3" json:"execution,omitempty"` // Timing breakdown
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -332,6 +341,13 @@ func (x *RunPolicyResponse) GetExecution() *ExecutionTiming {
 		return x.Execution
 	}
 	return nil
+}
+
+func (x *RunPolicyResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
 }
 
 type ExecutionTiming struct {
@@ -571,6 +587,7 @@ type RunFlowResponse struct {
 	Result        *structpb.Value        `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"` // Can be any type (bool, string, struct)
 	NodeResponse  []*FlowNodeResponse    `protobuf:"bytes,2,rep,name=node_response,json=nodeResponse,proto3" json:"node_response,omitempty"`
 	Execution     *FlowExecutionTiming   `protobuf:"bytes,3,opt,name=execution,proto3" json:"execution,omitempty"`
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -626,11 +643,19 @@ func (x *RunFlowResponse) GetExecution() *FlowExecutionTiming {
 	return nil
 }
 
+func (x *RunFlowResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
+}
+
 type TestFlowResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Result        *structpb.Value        `protobuf:"bytes,1,opt,name=result,proto3" json:"result,omitempty"` // Can be any type (bool, string, struct)
 	NodeResponse  []*FlowNodeResponse    `protobuf:"bytes,2,rep,name=node_response,json=nodeResponse,proto3" json:"node_response,omitempty"`
 	Execution     *FlowExecutionTiming   `protobuf:"bytes,3,opt,name=execution,proto3" json:"execution,omitempty"`
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -686,12 +711,20 @@ func (x *TestFlowResponse) GetExecution() *FlowExecutionTiming {
 	return nil
 }
 
+func (x *TestFlowResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
+}
+
 type FlowNodeResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	NodeId        string                 `protobuf:"bytes,1,opt,name=node_id,json=nodeId,proto3" json:"node_id,omitempty"`
 	NodeType      string                 `protobuf:"bytes,2,opt,name=node_type,json=nodeType,proto3" json:"node_type,omitempty"`
 	Response      *RunResponse           `protobuf:"bytes,3,opt,name=response,proto3" json:"response,omitempty"`
 	Execution     *FlowNodeExecution     `protobuf:"bytes,4,opt,name=execution,proto3" json:"execution,omitempty"`
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -752,6 +785,13 @@ func (x *FlowNodeResponse) GetExecution() *FlowNodeExecution {
 		return x.Execution
 	}
 	return nil
+}
+
+func (x *FlowNodeResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
 }
 
 type FlowNodeExecution struct {
@@ -896,7 +936,7 @@ const file_policy_v1_policy_proto_rawDesc = "" +
 	"\x10RunPolicyRequest\x12\x1b\n" +
 	"\tpolicy_id\x18\x01 \x01(\tR\bpolicyId\x12+\n" +
 	"\x04data\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x04data\x12\x17\n" +
-	"\abase_id\x18\x03 \x01(\tR\x06baseId\"\xaf\x02\n" +
+	"\abase_id\x18\x03 \x01(\tR\x06baseId\"\xd7\x02\n" +
 	"\vRunResponse\x12\x16\n" +
 	"\x06result\x18\x01 \x01(\bR\x06result\x12-\n" +
 	"\x05trace\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x05trace\x12\x12\n" +
@@ -904,7 +944,9 @@ const file_policy_v1_policy_proto_rawDesc = "" +
 	"\x04data\x18\x04 \x01(\v2\x17.google.protobuf.StructR\x04data\x12-\n" +
 	"\x05error\x18\x05 \x01(\v2\x17.google.protobuf.StructR\x05error\x12/\n" +
 	"\x06labels\x18\x06 \x01(\v2\x17.google.protobuf.StructR\x06labels\x128\n" +
-	"\texecution\x18\a \x01(\v2\x1a.policy.v1.ExecutionTimingR\texecution\"\xb5\x02\n" +
+	"\texecution\x18\a \x01(\v2\x1a.policy.v1.ExecutionTimingR\texecution\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"\xdd\x02\n" +
 	"\x11RunPolicyResponse\x12\x16\n" +
 	"\x06result\x18\x01 \x01(\bR\x06result\x12-\n" +
 	"\x05trace\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x05trace\x12\x12\n" +
@@ -912,7 +954,9 @@ const file_policy_v1_policy_proto_rawDesc = "" +
 	"\x04data\x18\x04 \x01(\v2\x17.google.protobuf.StructR\x04data\x12-\n" +
 	"\x05error\x18\x05 \x01(\v2\x17.google.protobuf.StructR\x05error\x12/\n" +
 	"\x06labels\x18\x06 \x01(\v2\x17.google.protobuf.StructR\x06labels\x128\n" +
-	"\texecution\x18\a \x01(\v2\x1a.policy.v1.ExecutionTimingR\texecution\"\x82\x01\n" +
+	"\texecution\x18\a \x01(\v2\x1a.policy.v1.ExecutionTimingR\texecution\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"\x82\x01\n" +
 	"\x0fExecutionTiming\x12A\n" +
 	"\forchestrator\x18\x01 \x01(\v2\x1d.policy.v1.OrchestratorTimingR\forchestrator\x12\x16\n" +
 	"\x06engine\x18\x02 \x01(\tR\x06engine\x12\x14\n" +
@@ -927,20 +971,26 @@ const file_policy_v1_policy_proto_rawDesc = "" +
 	"\abase_id\x18\x03 \x01(\tR\x06baseId\"[\n" +
 	"\x0fTestFlowRequest\x12+\n" +
 	"\x04data\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x04data\x12\x1b\n" +
-	"\tflow_yaml\x18\x02 \x01(\tR\bflowYaml\"\xc1\x01\n" +
+	"\tflow_yaml\x18\x02 \x01(\tR\bflowYaml\"\xe9\x01\n" +
 	"\x0fRunFlowResponse\x12.\n" +
 	"\x06result\x18\x01 \x01(\v2\x16.google.protobuf.ValueR\x06result\x12@\n" +
 	"\rnode_response\x18\x02 \x03(\v2\x1b.policy.v1.FlowNodeResponseR\fnodeResponse\x12<\n" +
-	"\texecution\x18\x03 \x01(\v2\x1e.policy.v1.FlowExecutionTimingR\texecution\"\xc2\x01\n" +
+	"\texecution\x18\x03 \x01(\v2\x1e.policy.v1.FlowExecutionTimingR\texecution\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"\xea\x01\n" +
 	"\x10TestFlowResponse\x12.\n" +
 	"\x06result\x18\x01 \x01(\v2\x16.google.protobuf.ValueR\x06result\x12@\n" +
 	"\rnode_response\x18\x02 \x03(\v2\x1b.policy.v1.FlowNodeResponseR\fnodeResponse\x12<\n" +
-	"\texecution\x18\x03 \x01(\v2\x1e.policy.v1.FlowExecutionTimingR\texecution\"\xb8\x01\n" +
+	"\texecution\x18\x03 \x01(\v2\x1e.policy.v1.FlowExecutionTimingR\texecution\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"\xe0\x01\n" +
 	"\x10FlowNodeResponse\x12\x17\n" +
 	"\anode_id\x18\x01 \x01(\tR\x06nodeId\x12\x1b\n" +
 	"\tnode_type\x18\x02 \x01(\tR\bnodeType\x122\n" +
 	"\bresponse\x18\x03 \x01(\v2\x16.policy.v1.RunResponseR\bresponse\x12:\n" +
-	"\texecution\x18\x04 \x01(\v2\x1c.policy.v1.FlowNodeExecutionR\texecution\"]\n" +
+	"\texecution\x18\x04 \x01(\v2\x1c.policy.v1.FlowNodeExecutionR\texecution\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"]\n" +
 	"\x11FlowNodeExecution\x12\x1a\n" +
 	"\bdatabase\x18\x01 \x01(\tR\bdatabase\x12\x16\n" +
 	"\x06engine\x18\x02 \x01(\tR\x06engine\x12\x14\n" +
@@ -1033,6 +1083,11 @@ func file_policy_v1_policy_proto_init() {
 	if File_policy_v1_policy_proto != nil {
 		return
 	}
+	file_policy_v1_policy_proto_msgTypes[2].OneofWrappers = []any{}
+	file_policy_v1_policy_proto_msgTypes[3].OneofWrappers = []any{}
+	file_policy_v1_policy_proto_msgTypes[8].OneofWrappers = []any{}
+	file_policy_v1_policy_proto_msgTypes[9].OneofWrappers = []any{}
+	file_policy_v1_policy_proto_msgTypes[10].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

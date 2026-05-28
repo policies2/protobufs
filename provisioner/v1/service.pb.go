@@ -89,6 +89,7 @@ type ProvisionTenantDatabaseResponse struct {
 	Database         *v1.DatabaseDetails    `protobuf:"bytes,3,opt,name=database,proto3" json:"database,omitempty"`
 	MigrationApplied bool                   `protobuf:"varint,4,opt,name=migration_applied,json=migrationApplied,proto3" json:"migration_applied,omitempty"`
 	AlreadyExisted   bool                   `protobuf:"varint,5,opt,name=already_existed,json=alreadyExisted,proto3" json:"already_existed,omitempty"`
+	Status           *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -156,6 +157,13 @@ func (x *ProvisionTenantDatabaseResponse) GetAlreadyExisted() bool {
 		return x.AlreadyExisted
 	}
 	return false
+}
+
+func (x *ProvisionTenantDatabaseResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
 }
 
 type HealthzRequest struct {
@@ -350,13 +358,15 @@ const file_provisioner_v1_service_proto_rawDesc = "" +
 	"\x1eProvisionTenantDatabaseRequest\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12!\n" +
 	"\fservice_name\x18\x02 \x01(\tR\vserviceName\x12%\n" +
-	"\x0eallow_existing\x18\x03 \x01(\bR\rallowExisting\"\xf8\x01\n" +
+	"\x0eallow_existing\x18\x03 \x01(\bR\rallowExisting\"\xa0\x02\n" +
 	"\x1fProvisionTenantDatabaseResponse\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12'\n" +
 	"\x0frailway_service\x18\x02 \x01(\tR\x0erailwayService\x129\n" +
 	"\bdatabase\x18\x03 \x01(\v2\x1d.keyserver.v1.DatabaseDetailsR\bdatabase\x12+\n" +
 	"\x11migration_applied\x18\x04 \x01(\bR\x10migrationApplied\x12'\n" +
-	"\x0falready_existed\x18\x05 \x01(\bR\x0ealreadyExisted\"\x10\n" +
+	"\x0falready_existed\x18\x05 \x01(\bR\x0ealreadyExisted\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"\x10\n" +
 	"\x0eHealthzRequest\")\n" +
 	"\x0fHealthzResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status\"v\n" +
@@ -415,6 +425,7 @@ func file_provisioner_v1_service_proto_init() {
 	if File_provisioner_v1_service_proto != nil {
 		return
 	}
+	file_provisioner_v1_service_proto_msgTypes[1].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

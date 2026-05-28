@@ -404,6 +404,7 @@ func (x *GetAccountRequest) GetOrgId() string {
 type UpsertAccountResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Account       *Account               `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -445,9 +446,17 @@ func (x *UpsertAccountResponse) GetAccount() *Account {
 	return nil
 }
 
+func (x *UpsertAccountResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
+}
+
 type GetAccountResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Account       *Account               `protobuf:"bytes,1,opt,name=account,proto3" json:"account,omitempty"`
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -487,6 +496,13 @@ func (x *GetAccountResponse) GetAccount() *Account {
 		return x.Account
 	}
 	return nil
+}
+
+func (x *GetAccountResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
 }
 
 type Lease struct {
@@ -708,6 +724,7 @@ type AuthorizeLeaseResponse struct {
 	RequestedUnits int64                  `protobuf:"varint,7,opt,name=requested_units,json=requestedUnits,proto3" json:"requested_units,omitempty"`
 	RemainingUnits int64                  `protobuf:"varint,8,opt,name=remaining_units,json=remainingUnits,proto3" json:"remaining_units,omitempty"`
 	Message        string                 `protobuf:"bytes,9,opt,name=message,proto3" json:"message,omitempty"`
+	Status         *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -805,6 +822,13 @@ func (x *AuthorizeLeaseResponse) GetMessage() string {
 	return ""
 }
 
+func (x *AuthorizeLeaseResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
+}
+
 type RecordUsageRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	LeaseId        string                 `protobuf:"bytes,1,opt,name=lease_id,json=leaseId,proto3" json:"lease_id,omitempty"`
@@ -870,6 +894,7 @@ type RecordUsageResponse struct {
 	Lease         *Lease                 `protobuf:"bytes,1,opt,name=lease,proto3" json:"lease,omitempty"`
 	Account       *Account               `protobuf:"bytes,2,opt,name=account,proto3" json:"account,omitempty"`
 	Idempotent    bool                   `protobuf:"varint,3,opt,name=idempotent,proto3" json:"idempotent,omitempty"`
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -925,6 +950,13 @@ func (x *RecordUsageResponse) GetIdempotent() bool {
 	return false
 }
 
+func (x *RecordUsageResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
+}
+
 type ReleaseLeaseRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	LeaseId       string                 `protobuf:"bytes,1,opt,name=lease_id,json=leaseId,proto3" json:"lease_id,omitempty"`
@@ -974,6 +1006,7 @@ type ReleaseLeaseResponse struct {
 	Lease         *Lease                 `protobuf:"bytes,1,opt,name=lease,proto3" json:"lease,omitempty"`
 	Account       *Account               `protobuf:"bytes,2,opt,name=account,proto3" json:"account,omitempty"`
 	ReleasedUnits int64                  `protobuf:"varint,3,opt,name=released_units,json=releasedUnits,proto3" json:"released_units,omitempty"`
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1027,6 +1060,13 @@ func (x *ReleaseLeaseResponse) GetReleasedUnits() int64 {
 		return x.ReleasedUnits
 	}
 	return 0
+}
+
+func (x *ReleaseLeaseResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
 }
 
 type HealthzRequest struct {
@@ -1147,11 +1187,15 @@ const file_billing_v1_service_proto_rawDesc = "" +
 	"\x12current_used_units\x18\x06 \x01(\x03R\x10currentUsedUnits\x120\n" +
 	"\x14current_period_start\x18\a \x01(\tR\x12currentPeriodStart\"*\n" +
 	"\x11GetAccountRequest\x12\x15\n" +
-	"\x06org_id\x18\x01 \x01(\tR\x05orgId\"F\n" +
+	"\x06org_id\x18\x01 \x01(\tR\x05orgId\"n\n" +
 	"\x15UpsertAccountResponse\x12-\n" +
-	"\aaccount\x18\x01 \x01(\v2\x13.billing.v1.AccountR\aaccount\"C\n" +
+	"\aaccount\x18\x01 \x01(\v2\x13.billing.v1.AccountR\aaccount\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"k\n" +
 	"\x12GetAccountResponse\x12-\n" +
-	"\aaccount\x18\x01 \x01(\v2\x13.billing.v1.AccountR\aaccount\"\x95\x03\n" +
+	"\aaccount\x18\x01 \x01(\v2\x13.billing.v1.AccountR\aaccount\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"\x95\x03\n" +
 	"\x05Lease\x12\x19\n" +
 	"\blease_id\x18\x01 \x01(\tR\aleaseId\x12\x15\n" +
 	"\x06org_id\x18\x02 \x01(\tR\x05orgId\x12\x15\n" +
@@ -1172,7 +1216,7 @@ const file_billing_v1_service_proto_rawDesc = "" +
 	"\bkey_kind\x18\x03 \x01(\tR\akeyKind\x12'\n" +
 	"\x0frequested_units\x18\x04 \x01(\x03R\x0erequestedUnits\x12\x1f\n" +
 	"\vttl_seconds\x18\x05 \x01(\x03R\n" +
-	"ttlSeconds\"\xda\x02\n" +
+	"ttlSeconds\"\x82\x03\n" +
 	"\x16AuthorizeLeaseResponse\x12\x18\n" +
 	"\aallowed\x18\x01 \x01(\bR\aallowed\x12\x18\n" +
 	"\acounted\x18\x02 \x01(\bR\acounted\x12#\n" +
@@ -1182,24 +1226,30 @@ const file_billing_v1_service_proto_rawDesc = "" +
 	"\rgranted_units\x18\x06 \x01(\x03R\fgrantedUnits\x12'\n" +
 	"\x0frequested_units\x18\a \x01(\x03R\x0erequestedUnits\x12'\n" +
 	"\x0fremaining_units\x18\b \x01(\x03R\x0eremainingUnits\x12\x18\n" +
-	"\amessage\x18\t \x01(\tR\amessage\"w\n" +
+	"\amessage\x18\t \x01(\tR\amessage\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"w\n" +
 	"\x12RecordUsageRequest\x12\x19\n" +
 	"\blease_id\x18\x01 \x01(\tR\aleaseId\x12\x1d\n" +
 	"\n" +
 	"used_units\x18\x02 \x01(\x03R\tusedUnits\x12'\n" +
-	"\x0fidempotency_key\x18\x03 \x01(\tR\x0eidempotencyKey\"\x8d\x01\n" +
+	"\x0fidempotency_key\x18\x03 \x01(\tR\x0eidempotencyKey\"\xb5\x01\n" +
 	"\x13RecordUsageResponse\x12'\n" +
 	"\x05lease\x18\x01 \x01(\v2\x11.billing.v1.LeaseR\x05lease\x12-\n" +
 	"\aaccount\x18\x02 \x01(\v2\x13.billing.v1.AccountR\aaccount\x12\x1e\n" +
 	"\n" +
 	"idempotent\x18\x03 \x01(\bR\n" +
-	"idempotent\"0\n" +
+	"idempotent\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"0\n" +
 	"\x13ReleaseLeaseRequest\x12\x19\n" +
-	"\blease_id\x18\x01 \x01(\tR\aleaseId\"\x95\x01\n" +
+	"\blease_id\x18\x01 \x01(\tR\aleaseId\"\xbd\x01\n" +
 	"\x14ReleaseLeaseResponse\x12'\n" +
 	"\x05lease\x18\x01 \x01(\v2\x11.billing.v1.LeaseR\x05lease\x12-\n" +
 	"\aaccount\x18\x02 \x01(\v2\x13.billing.v1.AccountR\aaccount\x12%\n" +
-	"\x0ereleased_units\x18\x03 \x01(\x03R\rreleasedUnits\"\x10\n" +
+	"\x0ereleased_units\x18\x03 \x01(\x03R\rreleasedUnits\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"\x10\n" +
 	"\x0eHealthzRequest\")\n" +
 	"\x0fHealthzResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status2\xf3\x03\n" +
@@ -1278,6 +1328,11 @@ func file_billing_v1_service_proto_init() {
 	if File_billing_v1_service_proto != nil {
 		return
 	}
+	file_billing_v1_service_proto_msgTypes[5].OneofWrappers = []any{}
+	file_billing_v1_service_proto_msgTypes[6].OneofWrappers = []any{}
+	file_billing_v1_service_proto_msgTypes[9].OneofWrappers = []any{}
+	file_billing_v1_service_proto_msgTypes[11].OneofWrappers = []any{}
+	file_billing_v1_service_proto_msgTypes[13].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

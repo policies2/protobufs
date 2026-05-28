@@ -146,6 +146,7 @@ type GenerateKeyResponse struct {
 	SharedDb       bool                   `protobuf:"varint,12,opt,name=shared_db,json=sharedDb,proto3" json:"shared_db,omitempty"`
 	Valid          bool                   `protobuf:"varint,13,opt,name=valid,proto3" json:"valid,omitempty"`
 	Name           string                 `protobuf:"bytes,14,opt,name=name,proto3" json:"name,omitempty"`
+	Status         *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -278,6 +279,13 @@ func (x *GenerateKeyResponse) GetName() string {
 	return ""
 }
 
+func (x *GenerateKeyResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
+}
+
 type PutTenantDatabaseRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
@@ -343,6 +351,7 @@ type PutTenantDatabaseResponse struct {
 	TenantId      string                 `protobuf:"bytes,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
 	Enterprise    bool                   `protobuf:"varint,2,opt,name=enterprise,proto3" json:"enterprise,omitempty"`
 	Database      *DatabaseDetails       `protobuf:"bytes,3,opt,name=database,proto3" json:"database,omitempty"`
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -396,6 +405,13 @@ func (x *PutTenantDatabaseResponse) GetDatabase() *DatabaseDetails {
 		return x.Database
 	}
 	return nil
+}
+
+func (x *PutTenantDatabaseResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
 }
 
 type ValidateKeyRequest struct {
@@ -456,6 +472,7 @@ type ValidateKeyResponse struct {
 	ExpiresAt      *timestamppb.Timestamp `protobuf:"bytes,10,opt,name=expires_at,json=expiresAt,proto3" json:"expires_at,omitempty"`
 	SharedDb       bool                   `protobuf:"varint,11,opt,name=shared_db,json=sharedDb,proto3" json:"shared_db,omitempty"`
 	Valid          bool                   `protobuf:"varint,12,opt,name=valid,proto3" json:"valid,omitempty"`
+	Status         *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -574,6 +591,13 @@ func (x *ValidateKeyResponse) GetValid() bool {
 	return false
 }
 
+func (x *ValidateKeyResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
+}
+
 type RevokeKeyRequest struct {
 	state           protoimpl.MessageState `protogen:"open.v1"`
 	KeyId           string                 `protobuf:"bytes,1,opt,name=key_id,json=keyId,proto3" json:"key_id,omitempty"`
@@ -636,6 +660,8 @@ func (x *RevokeKeyRequest) GetReplacedByKeyId() string {
 
 type RevokeKeyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Revoked       bool                   `protobuf:"varint,1,opt,name=revoked,proto3" json:"revoked,omitempty"`
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -668,6 +694,20 @@ func (x *RevokeKeyResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use RevokeKeyResponse.ProtoReflect.Descriptor instead.
 func (*RevokeKeyResponse) Descriptor() ([]byte, []int) {
 	return file_keyserver_v1_service_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *RevokeKeyResponse) GetRevoked() bool {
+	if x != nil {
+		return x.Revoked
+	}
+	return false
+}
+
+func (x *RevokeKeyResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
 }
 
 type ListKeysRequest struct {
@@ -733,6 +773,7 @@ func (x *ListKeysRequest) GetOwnerId() string {
 type ListKeysResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Keys          []*KeyInfo             `protobuf:"bytes,1,rep,name=keys,proto3" json:"keys,omitempty"`
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -772,6 +813,13 @@ func (x *ListKeysResponse) GetKeys() []*KeyInfo {
 		return x.Keys
 	}
 	return nil
+}
+
+func (x *ListKeysResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
 }
 
 type GetKeyRequest struct {
@@ -829,6 +877,7 @@ func (x *GetKeyRequest) GetTenantId() string {
 type GetKeyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Key           *KeyInfo               `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Status        *string                `protobuf:"bytes,99,opt,name=status,proto3,oneof" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -868,6 +917,13 @@ func (x *GetKeyResponse) GetKey() *KeyInfo {
 		return x.Key
 	}
 	return nil
+}
+
+func (x *GetKeyResponse) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
 }
 
 type KeyInfo struct {
@@ -1205,7 +1261,7 @@ const file_keyserver_v1_service_proto_rawDesc = "" +
 	"expires_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12\x1b\n" +
 	"\tshared_db\x18\a \x01(\bR\bsharedDb\x12\x12\n" +
 	"\x04name\x18\b \x01(\tR\x04name\x12&\n" +
-	"\x0freplaces_key_id\x18\t \x01(\tR\rreplacesKeyId\"\xcc\x03\n" +
+	"\x0freplaces_key_id\x18\t \x01(\tR\rreplacesKeyId\"\xf4\x03\n" +
 	"\x13GenerateKeyResponse\x12\x17\n" +
 	"\aapi_key\x18\x01 \x01(\tR\x06apiKey\x12\x15\n" +
 	"\x06key_id\x18\x02 \x01(\tR\x05keyId\x12\x1b\n" +
@@ -1224,21 +1280,25 @@ const file_keyserver_v1_service_proto_rawDesc = "" +
 	"expires_at\x18\v \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12\x1b\n" +
 	"\tshared_db\x18\f \x01(\bR\bsharedDb\x12\x14\n" +
 	"\x05valid\x18\r \x01(\bR\x05valid\x12\x12\n" +
-	"\x04name\x18\x0e \x01(\tR\x04name\"\x92\x01\n" +
+	"\x04name\x18\x0e \x01(\tR\x04name\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"\x92\x01\n" +
 	"\x18PutTenantDatabaseRequest\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12\x1e\n" +
 	"\n" +
 	"enterprise\x18\x02 \x01(\bR\n" +
 	"enterprise\x129\n" +
-	"\bdatabase\x18\x03 \x01(\v2\x1d.keyserver.v1.DatabaseDetailsR\bdatabase\"\x93\x01\n" +
+	"\bdatabase\x18\x03 \x01(\v2\x1d.keyserver.v1.DatabaseDetailsR\bdatabase\"\xbb\x01\n" +
 	"\x19PutTenantDatabaseResponse\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12\x1e\n" +
 	"\n" +
 	"enterprise\x18\x02 \x01(\bR\n" +
 	"enterprise\x129\n" +
-	"\bdatabase\x18\x03 \x01(\v2\x1d.keyserver.v1.DatabaseDetailsR\bdatabase\"-\n" +
+	"\bdatabase\x18\x03 \x01(\v2\x1d.keyserver.v1.DatabaseDetailsR\bdatabase\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"-\n" +
 	"\x12ValidateKeyRequest\x12\x17\n" +
-	"\aapi_key\x18\x01 \x01(\tR\x06apiKey\"\x9f\x03\n" +
+	"\aapi_key\x18\x01 \x01(\tR\x06apiKey\"\xc7\x03\n" +
 	"\x13ValidateKeyResponse\x12\x15\n" +
 	"\x06key_id\x18\x01 \x01(\tR\x05keyId\x12\x1b\n" +
 	"\ttenant_id\x18\x02 \x01(\tR\btenantId\x12\x17\n" +
@@ -1254,24 +1314,33 @@ const file_keyserver_v1_service_proto_rawDesc = "" +
 	"expires_at\x18\n" +
 	" \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\x12\x1b\n" +
 	"\tshared_db\x18\v \x01(\bR\bsharedDb\x12\x14\n" +
-	"\x05valid\x18\f \x01(\bR\x05valid\"s\n" +
+	"\x05valid\x18\f \x01(\bR\x05valid\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"s\n" +
 	"\x10RevokeKeyRequest\x12\x15\n" +
 	"\x06key_id\x18\x01 \x01(\tR\x05keyId\x12\x1b\n" +
 	"\ttenant_id\x18\x02 \x01(\tR\btenantId\x12+\n" +
-	"\x12replaced_by_key_id\x18\x03 \x01(\tR\x0freplacedByKeyId\"\x13\n" +
-	"\x11RevokeKeyResponse\"h\n" +
+	"\x12replaced_by_key_id\x18\x03 \x01(\tR\x0freplacedByKeyId\"U\n" +
+	"\x11RevokeKeyResponse\x12\x18\n" +
+	"\arevoked\x18\x01 \x01(\bR\arevoked\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"h\n" +
 	"\x0fListKeysRequest\x12\x1b\n" +
 	"\ttenant_id\x18\x01 \x01(\tR\btenantId\x12\x1d\n" +
 	"\n" +
 	"owner_type\x18\x02 \x01(\tR\townerType\x12\x19\n" +
-	"\bowner_id\x18\x03 \x01(\tR\aownerId\"=\n" +
+	"\bowner_id\x18\x03 \x01(\tR\aownerId\"e\n" +
 	"\x10ListKeysResponse\x12)\n" +
-	"\x04keys\x18\x01 \x03(\v2\x15.keyserver.v1.KeyInfoR\x04keys\"C\n" +
+	"\x04keys\x18\x01 \x03(\v2\x15.keyserver.v1.KeyInfoR\x04keys\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"C\n" +
 	"\rGetKeyRequest\x12\x15\n" +
 	"\x06key_id\x18\x01 \x01(\tR\x05keyId\x12\x1b\n" +
-	"\ttenant_id\x18\x02 \x01(\tR\btenantId\"9\n" +
+	"\ttenant_id\x18\x02 \x01(\tR\btenantId\"a\n" +
 	"\x0eGetKeyResponse\x12'\n" +
-	"\x03key\x18\x01 \x01(\v2\x15.keyserver.v1.KeyInfoR\x03key\"\xf1\x03\n" +
+	"\x03key\x18\x01 \x01(\v2\x15.keyserver.v1.KeyInfoR\x03key\x12\x1b\n" +
+	"\x06status\x18c \x01(\tH\x00R\x06status\x88\x01\x01B\t\n" +
+	"\a_status\"\xf1\x03\n" +
 	"\aKeyInfo\x12\x15\n" +
 	"\x06key_id\x18\x01 \x01(\tR\x05keyId\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1d\n" +
@@ -1384,6 +1453,12 @@ func file_keyserver_v1_service_proto_init() {
 	if File_keyserver_v1_service_proto != nil {
 		return
 	}
+	file_keyserver_v1_service_proto_msgTypes[1].OneofWrappers = []any{}
+	file_keyserver_v1_service_proto_msgTypes[3].OneofWrappers = []any{}
+	file_keyserver_v1_service_proto_msgTypes[5].OneofWrappers = []any{}
+	file_keyserver_v1_service_proto_msgTypes[7].OneofWrappers = []any{}
+	file_keyserver_v1_service_proto_msgTypes[9].OneofWrappers = []any{}
+	file_keyserver_v1_service_proto_msgTypes[11].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
