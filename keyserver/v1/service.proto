@@ -125,6 +125,7 @@ message KeyInfo {
   string replaces_key_id = 11;
   string replaced_by_key_id = 12;
   bool shared_db = 13;
+  google.protobuf.Timestamp last_used_at = 14;
 }
 
 message DatabaseDetails {
